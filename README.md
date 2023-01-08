@@ -1,2 +1,2 @@
 # PHYS516-notes
-Typeset notes for UBC's PHYS 502 (Condensed Matter Physics I) course.
+Typeset notes for UBC's PHYS 516 (Graduate Statistical Mechanics) course.
