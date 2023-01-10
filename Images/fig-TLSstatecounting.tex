@@ -1,0 +1,15 @@
+\documentclass[10pt]{standalone}
+\usepackage{commands}
+
+\begin{document}
+\begin{tikzpicture}
+    \draw[-latex, thick] (0, 0) -- (6, 0);
+    \draw[-latex, thick] (0, 0) -- (0, 4);
+    \draw[smooth, samples=1000, domain=0.01:5, blue] plot(\x, {5*ln(5) - 5 - \x * ln(\x) + \x - (5 - \x)*ln(5 - \x) + (5-\x)});
+    \node[below] at (0, 0) {$0$};
+    \node[below] at (5, 0) {$N$};
+    \node[below] at (2.5, 0) {$\frac{N}{2}$};
+    \node[right] at (6, 0) {$n$};
+    \node[left] at (0, 4) {$\ln(\frac{N!}{n!(N-n)!})$};
+\end{tikzpicture}
+\end{document}
