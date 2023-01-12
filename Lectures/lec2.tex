@@ -1,0 +1,187 @@
+\section{Free Energy, Ideal Gas, and the Grand Canonical Ensemble}
+
+\subsection{Thermodynamic Interpretation, Energy, and Free Energy}
+Last time, we looked at the canonical ensemble. We derived the most probable distribution:
+\begin{equation}
+    \rho_a = \frac{e^{-\beta E_a}}{\sum_a e^{-\beta E_a}}
+\end{equation}
+and found the partition function:
+\begin{equation}
+    Z = \sum_a e^{-\beta E_a}.
+\end{equation}
+We argue that this already has a nice thermodynamic interpretation. This comes about if we look at the logarithm of the partition function:
+\begin{equation}
+    F = -\frac{1}{\beta}\ln Z = -\frac{1}{\beta}\ln \sum_a e^{-\beta E_a}
+\end{equation}
+Note that if there was only one energy level, then this would immediately just be the energy - in general the energy we calculate as the expectation value:
+\begin{equation}
+    U = \frac{\sum_a E_a e^{-\beta E_a}}{\sum_a e^{-\beta E_a}}
+\end{equation}
+How does $F$ relate to $U$? Let us write:
+\begin{equation}
+    F = U + \left(-\frac{1}{\beta}\ln \sum_a e^{-\beta E_a} - \frac{\sum_a E_a e^{-\beta E_a}}{\sum_a e^{-\beta E_a}}\right)
+\end{equation}
+Let us call $e^{-\beta E_a} = Z \rho_a$ and write $E_a = -\frac{1}{\beta}\ln Z - \frac{1}{\beta}\ln \rho_a$. Then, rewriting the above expression, we find:
+\begin{equation}
+    F = U - \frac{1}{\beta}\sum_a \rho_a \ln \rho_a.
+\end{equation}
+The second term should be familiar to anyone with an information theory background - $S_{VN} = \sum_a \rho_a \ln \rho_a$ is known as the von Neumann entropy. It is the entropy of the distribution - a measure of how little we know about the system when we have the distribution $\rho_a$. It is minimized if one of the $\rho$s is one and the others are zero, as the entropy is zero (then we know exactly what the system is). It is maximized if all of the $\rho$s are constant (because then we know nothing about the system). If we are willing to accept that the von Neumann entropy is equal to the thermal entropy up to a constant:
+\begin{equation}
+    S = k_B S_{VN}
+\end{equation}
+where $k_B$ is Boltzmann's constant. Then, we obtain:
+\begin{equation}
+    F = U - \frac{1}{\beta}\frac{S}{k_B}
+\end{equation}
+which closely resembles:
+\begin{equation}
+    F = U - TS. 
+\end{equation}
+where $T$ is the temperature (if we interpret $\beta = \frac{1}{k_B T}$). This is the familiar thermodynamic expression for the Helmholtz free energy.
+
+This is not the historical order in which things are done - historically the microcanonical viewpoint (due to Boltzmann) came first, but this requires the system to be thermodynamic.
+
+\subsection{Example - System of weakly interacting non-relativistic particles}
+Let us assume we have a collection of $N$ weakly interacting non-relativistic particles of mass $m$, which obey the laws of classical mechanics. A state of such a system will just be the specifications of the positions and velocity (or momenta) of all the particles (mathematically, this is because Newton's second law is a second-order ODE so we require two boundary conditions to specify the state). We can write the state as a collection of these values $\set{\v{q}_1, \v{p}_1, \ldots, \v{q}_n, \v{p}_n}$ The energy is then given by the Hamiltonian:
+\begin{equation}
+    H = \sum_k \frac{\v{p}_k^2}{2m}
+\end{equation}
+Note we assume that the masses of the particles are the same and all attributes of the particles (other than position or momentum) are identical - note that in the context of classical mechanics this does not make the particles indistinguishable - we can keep track of them. This is in contrast to quantum statistical mechanics, where particles are truly indistinguishable and are either fermions or bosons.
+
+We can construct the partition function for this system:
+\begin{equation}
+    Z = \int d\v{q}_1 d\v{p}_1 \ldots d\v{q}_n d\v{p}_n e^{-\beta H}
+\end{equation}
+this looks reasonable, but there are a couple things wrong with this. One problem - $Z$ has dimensions; this is problematic if we want to take functions of it (e.g. logarithms to get the free energy). To deal with this problem, we just divide it by a number that gets rid of the dimensions:
+\begin{equation}
+    Z = \frac{1}{(2\pi \hbar)^{3N}}\int d\v{q}_1 d\v{p}_1 \ldots d\v{q}_n d\v{p}_n e^{-\beta H}
+\end{equation}
+$\hbar$ we pretty much pulled out of a hat here, but we require something with the dimensions of angular momentum to place there. Let's now do the integral. Let's assume that our particles move in infinite 3-D Euclidean space; we can then write $\int d\v{q}_i = V$ (the volume) as $H$ does not depend on the positions. Further, all momentum integrals are equivalent, so let us write it as the product of momentum integrals:
+\begin{equation}
+    Z = \frac{V^N}{(2\pi \hbar)^{3N}}\left(\int dp e^{-\frac{\beta}{2m}\v{p}^2}\right)^{3N}
+\end{equation}
+We go into polar coordinates to solve this Gaussian integral:
+\begin{equation}
+    \left(\int dp\right)^{3N} \to \left(\int d^2p\right)^{\frac{3N}{2}} \to \left(\int \frac{d\phi pdp}{2}\right)^{\frac{3N}{2}}
+\end{equation}
+which yields:
+\begin{equation}
+    Z = \frac{V^N}{(2\pi \hbar)^{3N}} \left(\frac{2\pi m}{\beta}\right)^{\frac{3N}{2}} = V^N\left(\frac{mk_B T}{2\pi \hbar^2}\right)^{\frac{3N}{2}}
+\end{equation}
+The Helmholtz free energy is then:
+\begin{equation}
+    F[T, V, N] = -k_B T N\ln \left[V\left(\frac{mk_B T}{2\pi \hbar^2}\right)^{3/2}\right]
+\end{equation}
+This system should be truly thermodynamic (as we can take the system to be large), so this should work - we will see in a moment that unfortunately, it does not!
+
+Recall thermodynamic differential relation:
+\begin{equation}
+    dF = -S dT + \mu dN - P dV
+\end{equation}
+So the entropy is:
+\begin{equation}
+    S = \left.-\dpd{F}{T}\right|_{N, V}
+\end{equation}
+the chemical potential is:
+\begin{equation}
+    \mu = \left.\dpd{F}{N}\right|_{T, V}
+\end{equation}
+and the pressure is:
+\begin{equation}
+    P = \left.-\dpd{F}{V}\right|_{T, N}
+\end{equation}
+so we can go to town and calculate some quantities. For example
+the pressure we can calculate to be:
+\begin{equation}
+    P = \frac{N k_B T}{V}
+\end{equation}
+which is the ideal gas law! Big success (the other quantities will not be as successful...)! The chemical potential we can calculate to be:
+\begin{equation}
+    \mu = -k_B T\ln\left(V\left(\frac{mk_B T}{2\pi \hbar^2}\right)^{3/2}\right)
+\end{equation}
+The entropy we calculate to be:
+\begin{equation}
+    S = \frac{3}{2}k_B N + k_B N\ln\left(V\left(\frac{m k_B T}{2\pi \hbar^2}\right)^{3/2}\right)
+\end{equation}
+We can calculate the energy to be:
+\begin{equation}
+    U = F + TS = \frac{3}{2}N k_B T
+\end{equation}
+which is again a beautiful formula (and the correct result). However, we should talk about why the formulas for $\mu, S$ are wrong. They do not have the correct extensivity properties. Concretely, if one considers two identical volumes of ideal gas separated by a partition, removing and re-inserting the partition should be reversible. However, a calculation of the entropy change shows that removing the partition leads to an increase in entropy of $2k_B N \ln 2$; contradiction. So we're a failure. But we're also clever, and can try to fix it. We introduce a factor of $\frac{1}{N!}$ into the partition function. This introduces a factor of $\frac{1}{N}$ into the logarithm in the free energy expression, which ends up correcting things. This was originally a fudge factor fix, but it turns out to be quite deep - namely, we have overcounted the states in the system somehow, and the $\frac{1}{N!}$ corrects for this. This hints to classical mechanics being problematic (quantum statistics fixes this with indistinguishability). 
+
+But let's try taking $Z \to \frac{1}{N!}Z$ (we are exploring what is known as Maxwell-Boltzmann statistics). Then with Stirling's formula:
+\begin{equation}
+    \ln N! \approx N\ln N - N = \ln \left(\frac{N}{e}\right)^N
+\end{equation}
+Then the free energy becomes:
+\begin{equation}
+    F[T, N, V] = -k_B T\ln\left[\frac{eV}{N}\left(\frac{mk_B T}{2\pi \hbar^2}\right)^{3/2}\right]
+\end{equation}
+and now we see that $F$ has the correct scaling properties so things have been fixed. If we now recalculate quantities, $P, U$ stay the same (as beautiful as they were):
+\begin{equation}
+    PV = Nk_B T
+\end{equation}
+\begin{equation}
+    \frac{U}{N} = \frac{3}{2}k_B T
+\end{equation}
+
+And now the entropy is fixed up as well:
+\begin{equation}
+    S = \frac{3}{2}k_B N + k_B N\ln\left(\frac{eV}{N}\left(\frac{mk_B T}{2\pi\hbar^2}\right)^{3/2}\right)
+\end{equation}
+and this is known as the \emph{Sackur-Tetrode equation}.
+
+Before we go on - there are other ensembles we could have used, e.g. the grand canonical ensembles where the subsystems are allowed to exchange particles as well as energy. We need this as this one is the easier one to use when we consider quantum statistics. So in a way, Maxwell-Boltzmann statistics assumes the distribution is completely symmetric in the particles, but it is blind to how the wavefunction changes - if we take the distribution to be $\rho = \psi^\dag \psi$, it assumes that each permutation comes out to be symmetric. But is not actually completely correct as in QM we impose the proper statistics on the wavefunctions, rather than the density.
+
+\subsection{Grand Canonical Ensemble}
+The logic follows exactly the same as the Canonical ensemble, with the only difference that we allow for the particle number to change. Suppose a system has $N_a$ particles in state $a$, and energy $E_a$. We define $n_a$ to be the number of systems in the ensemble in state $a$. We have some constraints:
+\begin{equation}
+    \sum_a n_a = \mathcal{N}
+\end{equation}
+\begin{equation}
+    \sum_a n_a E_a = \mathcal{E} = \mathcal{N}U
+\end{equation} 
+\begin{equation}
+    \sum_a n_a N_a = \mathcal{N}N
+\end{equation}
+in the above, $U$ is the average energy and $N$ is the average number of particles. This differs from what we had before by one equation. We want to find the most probable distribution; for this the mathematics is exactly the same, just with one more Lagrange multiplier. We maximize:
+\begin{equation}
+    \ln \frac{\mathcal{N}!}{\prod_a n_a !} + \beta(U\mathcal{N} - \sum_a n_a E_a) + \alpha\left(N\mathcal{N} - \sum_a n_a N_a\right) + \gamma\left(\mathcal{N} - \sum_a n_a\right)
+\end{equation}
+The argument is basically identical to what we did to calculate $\rho_a$ for the canonical ensemble. We solve the first and last equations for $\rho_a$ and leave the other two unsolved (they will be thermodynamic quantities we can interpret). After the dust settles, we end up with:
+\begin{equation}
+    \rho_a = \frac{e^{-\beta E_a - \alpha N_a}}{\sum_a e^{-\beta E_a - \alpha N_a}}
+\end{equation}
+Our grand canonical partition function is:
+\begin{equation}
+    \mathcal{Z} = \sum_a e^{-\beta E_a - \alpha N_a}
+\end{equation}
+If we identify:
+\begin{equation}
+    \Phi = -k_B T \ln \mathcal{Z}
+\end{equation}
+with the grand canonical free energy, and go through a similar procedure of identifying the Von Neumann entropy with the thermodynamic entropy (and an identification to relate $\alpha$ with the chemical potential), we obtain:
+\begin{equation}
+    \beta = -\frac{1}{k_B T}, \quad \alpha = -\frac{\mu}{k_B T}.
+\end{equation}
+The grand canonical free energy now no longer depends on the number of particles, but on the chemical potential. It is however related to the Helmholtz free energy via a Legendre transform:
+\begin{equation}
+    \Phi[T, \mu, V] = F - \mu \mathcal{N}
+\end{equation}
+If we did things correctly, working with the grand canonical free energy vs. the Helmholtz free energy should yield the same answers. If we recall the canonical partition function for the weakly interacting gas, we had a dependence on the particle number $N$ (note - NOT the average number of particles in the systems of the ensemble, but here really the number of particles in the ideal gas. Sorry for the overload of notation). We can sum over $N$ to get the grand canonical partition function. We can then go through and see if we obtain the same results (and we will). We had:
+\begin{equation}
+    Z[T, N, V] = \frac{1}{N!}V^N\left(\frac{mk_B T}{2\pi \hbar^2}\right)^{\frac{3N}{2}}
+\end{equation}
+note the inclusion of the $\frac{1}{N!}$ factor so things end up correct. The grand canonical partition function is then:
+\begin{equation}
+    \mathcal{Z}[T, \mu, V] = \sum_N e^{\frac{\mu}{k_B T}N}Z[T, N, V]
+\end{equation}
+this is an easy sum because its just $\sum_N \frac{1}{N!}x^N$; hopefully this is familiar as just an exponential:
+\begin{equation}
+    \mathcal{Z}[T, \mu, V] = e^{V\left(\frac{mk_B T}{2\pi \hbar^2}\right)^{3/2}e^{\frac{\mu}{k_B T}}}
+\end{equation}
+so our prediction for the grand canonical free energy is:
+\begin{equation}
+    \Phi = -k_B T \ln \mathcal{Z} = -k_B TV\left(\frac{mk_B T}{2\pi \hbar^2}\right)^{3/2}e^{\frac{\mu}{k_B T}}
+\end{equation}
+and we can go through the song and dance to obtain the quantities that we solved for using the canonical ensemble.
