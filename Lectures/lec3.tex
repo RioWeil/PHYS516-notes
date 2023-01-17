@@ -1,0 +1,149 @@
+\section{Microcanonical Ensemble, Quantum Statistical Mechanics}
+We have spent two lectures discussing the canonical ensemble and grand canonical ensemble - in this setting we have discussed the classical perfect gas. We have one more to discuss; the microcanonical ensemble.
+
+\subsection{Review of the Canonical Ensemble}
+The canonical ensemble is a way to find the likelihood that a system is in a particular state; we found the most likely distribution:
+\begin{equation}
+    \rho_a = \frac{e^{-\beta E_a}}{\sum_a e^{-\beta E_a}}
+\end{equation}
+with $\beta = \frac{1}{k_B T}$. In deriving this we made some assumptions; for example the fact that the system was able to visit different energy states (this may not be true, e.g., if the system obeys some conservation law). In the setting of the perfect gas, we assumed that the particles were weakly interacting so they could exchange energy and visit different energy states (but weakly so we did not have to consider the interaction very carefully) - if the particles were completely free, they could not change their state (the momenta of all the particles would be fixed). We explored this distribution in the context of an ensemble of two-level systems; for two spins, we found that this was only a good description $\sim 50\%$ of the time, but as we increase $N$ this estimate gets better and better.
+
+\subsection{Microcanonical Ensemble}
+The accuracy of the canonical ensemble only depended on the size of the ensemble - if something is not accurate enough, just look at a larger system. Essentially, a given subsystem sees the rest of the system as a heat bath/reservoir, and the estimate will get better as we increase the size of the heat bath. But we might ask - how well is the system described if we assume the system takes the most likely state? Roughly, the system takes the state such that $E^\nu e^{-\beta E}$ is maximized (those with a condensed matter background will be familiar with this sort of expression; the Boltzmann distribution times the density of states).
+
+Concretely, we say:
+\begin{equation}
+    \rho_a = \begin{cases}
+        1 & a: E_a = U
+        \\ 0 & \text{otherwise}
+    \end{cases}
+\end{equation}
+This looks extremely crude; it doesn't always work (e.g. the system needs to be highly degenerate) but for most normal things, it does. Let's reason out why. We consider the heat capacity:
+\begin{equation}
+    C = \left.\dpd{U}{T}\right|_{\ldots} \sim V c
+\end{equation}
+where $C$ (the total heat capacity) scales with volume (times the per-volume heat capacity/specific heat capacity $c$).
+
+In the canonical approach, $U$ is the average of the energy:
+\begin{equation}
+    U = \sum_a\frac{ E_a e^{-\beta E_a}}{\sum_a e^{-\beta E_a}} = \avg{E}
+\end{equation}
+We can write the heat capacity as:
+\begin{equation}
+    C = \dpd{U}{T} = \frac{1}{k_B T^2}\Delta U^2
+\end{equation}
+where:
+\begin{equation}
+    \Delta U^2 = \sum_a \frac{E_a^2e^{-\beta E_a}}{\sum_a e^{-\beta E_a}} - \left(\frac{\sum_a E_a e^{-\beta E_a}}{\sum_a e^{-\beta E_a}}\right)^2 = \avg{E^2} - \avg{E}^2
+\end{equation}
+i.e. the variance in $E$. Note that both $C$ (and so $\Delta U^2$) and $U$ scale with the volume of the system. Now, if we consider the variance of the energy:
+\begin{equation}
+    \sqrt{\frac{\Delta U^2}{U^2}} \sim \frac{\sqrt{C}}{V} \sim \frac{1}{\sqrt{V}}
+\end{equation}
+so as we take $V \to \infty$, the variance in the energy becomes tiny. So the conclusion is that:
+\begin{equation}
+    \rho_a = \begin{cases}
+        \frac{1}{D_a} & E_a = U
+        \\ 0 & E_a \neq U
+    \end{cases}
+\end{equation}
+(where $D_a$ is the degeneracy of $E_a$), is a reasonable distribution for (large) systems. 
+
+Note that this can be a useful approach for classical statistical mechanics (for quantum statistical mechanics, the grand canonical ensemble is the best approach). We now have Boltzmann's formula\footnote{Carved on his headstone!} for the entropy in terms of the degeneracy of states:
+\begin{equation}
+    S = k_B \ln W
+\end{equation}
+where $W = D_a$. In Boltzmann's work, $W$ was known as the number of ways of making the system with energy $U$ (QM, and hence degeneracy, was not conceptualized at the time). This pre-dates Gibbs, and ensembles - it was a fantastic guess by Boltzmann, though it was not believed by the time.
+
+\subsection{Ideal Gas - Microcanonical Ensemble Lens}
+What we need to find is $W$, which in a sense is the partition function in this context. It depends on $U$ (and other quantities), and we obtain it by integrating $\delta(U - \sum_a \frac{\v{p}_a^2}{2m})$ over all possible positions and momenta:
+\begin{equation}
+    W[U] = \int d\v{q}_1d\v{p}_1 \ldots d\v{q}_Nd\v{p}_N \delta(U - \sum_a \frac{\v{p}_a^2}{2m}).
+\end{equation}
+There are a couple problems with this formula, one is namely the dimensionality (we want to plug this into a logarithm, so it must be dimensionless). Part of this is the same story as before; we add a phase space volume (fudge factor) of $\frac{1}{(2\pi\hbar)^{3N}}$ to cancel out the dimensions from the integral:
+\begin{equation}
+    W[U] = \int \frac{d\v{q}_1d\v{p}_1 \ldots d\v{q}_Nd\v{p}_N}{(2\pi\hbar)^{3N}} \delta(U - \sum_a \frac{\v{p}_a^2}{2m})
+\end{equation}
+Further, we need to cancel out the inverse energy that comes from the dirac delta function, so we add a $\delta U$ factor:
+\begin{equation}
+    W[U] = \int \frac{d\v{q}_1d\v{p}_1 \ldots d\v{q}_Nd\v{p}_N}{(2\pi\hbar)^{3N}} \delta U\delta(U - \sum_a \frac{\v{p}_a^2}{2m})
+\end{equation} 
+visually, one can imagine adding a sort of ``thickness'' of a shell of energy in phase space to the integral. This should go away whenever we start to do thermodynamics, though. Furthermore, we are overcounting states here again; so let us add a factor of $\frac{1}{N!}$ to compensate:
+\begin{equation}
+    W[U] = \frac{1}{N!}\int \frac{d\v{q}_1d\v{p}_1 \ldots d\v{q}_Nd\v{p}_N}{(2\pi\hbar)^{3N}} \delta U\delta(U - \sum_a \frac{\v{p}_a^2}{2m})
+\end{equation}
+The $\frac{1}{N!}\frac{1}{(2\pi\hbar)^{3N}}$ part of this is quantum, the rest is classical. Now, let's evaluate this. The position integrals are trivial; nothing in the integrand depends on volume, so we just get a factor of $V^N$. For the momentum integrals, we do a rescaling of the dirac delta function and then evaluate it, and also include the unit sphere factor in $3N$-dimensional Euclidean space:
+\begin{equation}
+    W[U] = \frac{1}{N!}V^N \frac{1}{(2\pi \hbar)^{3N}}\frac{\delta U}{U}(2mU)^{\frac{3N}{2}}\frac{2\pi^{3N/2}}{\Gamma(\frac{3N}{2})}
+\end{equation}
+Now, recall Stirling's formula $N! = N\ln N - N$. The Gamma function is basically the factorial function, so $\Gamma(x) = x\ln x - x + \ldots$ (up to terms of order $O(\ln x)$). With this, we can clean up our expression for $W$:
+\begin{equation}
+    W[U, V, N] = \left(\frac{eV}{N}\left(\frac{2e}{3}\frac{mU/N}{2\pi \hbar^2}\right)^{3/2}\right)^{N}\frac{\delta U}{U}
+\end{equation}
+To get the entropy, a la Boltzmann we take the logarithm of this and then multiply by the Boltzmann constant:
+\begin{equation}
+    S[U, V, N] = k_B N\ln\left(\frac{V}{N}\left(\frac{\frac{2}{3}mU/N}{2\pi\hbar^2}\right)^{3/2}\right) + \frac{5}{2}k_B N
+\end{equation}
+for $N$ large, $\ln\frac{\delta U}{U}$ is of order $\ln N$ (not order $N$) so we can neglect it. This is now our thermodynamic entropy, and from it we can derive the thermodynamic quantities that we are interested in. For example the (inverse) temperature is given by:
+\begin{equation}
+    \frac{1}{T} = \left. \dpd{S}{U}\right|_{V, N}
+\end{equation}
+from which we can derive:
+\begin{equation}
+    \frac{1}{T} = \frac{3}{2}Nk_B \frac{1}{U}
+\end{equation}
+and so:
+\begin{equation}
+    U = \frac{3}{2}Nk_B T
+\end{equation}
+which is precisely the equipartition of energy formula for an ideal gas. We can proceed similarly with the pressure, and find the ideal gas law:
+\begin{equation}
+    PV = Nk_B T
+\end{equation}
+and all the other nice formulas we derived before. So, this appears to be an equally as valid approach.
+
+So, we've now covered three approaches; if we were to study ideal gases forever, we'd be pretty happy with this results. Particularly at higher temperatures/higher energy, this classical treatment works very well. Note that (after the last 30 minutes of lecture here) we will just use the canonical ensemble to look at Ising systems, and work in the classical regime where we set $\hbar = 0$ (though we will see that quantum field theories emerge in this setting... stay tuned). But for fun, let us quantize this theory, here.
+
+\subsection{Quantum Ideal Gas}
+Why is Maxwell-Boltzmann statistics not quite right? It is because in QM, states are described by the wavefunction $\psi(\v{q}_1, \ldots \v{q}_n, t)$, but probabilities are described by $\abs{\psi}^2$. A discussion of identical particles tells us that if we permute the position/particle labels, we get a state with the same energy. Nature tells us that there are only two\footnote{well, there are exotic quasiparticles like anyons... but we leave that to another course} types of statistics possible; the wavefunction is totally symmetric in its labels for bosons and anti-symmetric for fermions. But Maxwell-Boltzmann statistics tells us that the probability is symmetric in the labels, which is not quite right (not really describing either bosons or fermions correctly).
+
+Let us now count a system of (bosonic or fermionic) particles assuming we have a set of single-particle states that the particles can occupy. For bosons an arbitrary number of particles can fill a given state, for fermions this is forbidden (Pauli exclusion principle). Let's say a particle has energy $\e_i$. We now count like physicists; count how many states we have for a few particles, and extrapolate. We take the grand canonical point of view where the system is open and can have any number of particles. We assign to each energy a Boltzmann weight. This sounds complicated, but it will turn out to be pretty easy.
+
+In the case where we have no particles (the vaccum) we have only one possible state, so $\mathcal{Z}_{B}$ and $\mathcal{Z}_{F}$ both start with a 1:
+\begin{equation}
+    \mathcal{Z}_{B} = 1 + \ldots, \quad \mathcal{Z}_{F} = 1 + \ldots
+\end{equation}
+if we now have a one particle system, we obtain the single particle term $\sum_i e^{-\beta \mu}e^{-\beta \e_i}$ (with the sum taking care of all possible energies that the particle could have). For a single particle, the bosons and fermion partition functions look the same:
+\begin{equation}
+    \mathcal{Z}_{B} = 1 + \sum_i e^{\beta \mu}e^{-\beta \e_i} + \ldots, \quad \mathcal{Z}_{F} = 1 + \sum_i e^{\beta \mu}e^{-\beta \e_i} + \ldots
+\end{equation}
+Now for two particles, the two partition functions start to look different. For fermions, we have $e^{2\beta\mu}\sum_{i < j} e^{-\beta(\e_i + \e_j)}$ (noting that the two particles cannot occupy the same energy):
+\begin{equation}
+    \mathcal{Z}_F = 1 + \sum_i e^{\beta \mu}e^{-\beta \e_i} + e^{\beta\mu 2}\sum_{i < j} e^{-\beta(\e_i + \e_j)} + \ldots
+\end{equation}
+for bosons, the two particles can be in the same state, so:
+\begin{equation}
+    \mathcal{Z}_B = 1 + \sum_i e^{\beta\mu}e^{-\beta \e_i} + e^{2\beta\mu}\left(\sum_{i < j}e^{-\beta(\e_i + \e_j)} + \sum_i e^{-2\beta\e_i}\right) + \ldots
+\end{equation}
+If we continue in this fashion, we obtain:
+\begin{equation}
+    \mathcal{Z}_F = \prod_i\left(1 + e^{\beta \mu}e^{-\beta \e_i}\right)
+\end{equation}
+\begin{equation}
+    \mathcal{Z}_B = \prod_i \frac{1}{1 - e^{\beta\mu}e^{-\beta\e_i}}
+\end{equation}
+Recalling the grand canonical free energy formula:
+\begin{equation}
+    \Phi[T, \mu] = -k_B T\ln \mathcal{Z} 
+\end{equation}
+we find for bosons:
+\begin{equation}
+    \Phi_B[T, \mu] = k_B T\sum_i \ln(1 - e^{\beta\mu}e^{\beta\e_i})
+\end{equation}
+and for fermions:
+\begin{equation}
+    \Phi_F[T, \mu] = k_B T\sum_i \ln(1 + e^{\beta\mu}e^{-\beta\e_i})
+\end{equation}
+having obtained these, we can go ahead and do thermodynamics.
+
+For free fermions/bosons, we have $\e = \frac{\v{p}^2}{2m} = \frac{\hbar^2\v{k}^2}{2m}$. We can then replace the sums in the continuum approximation $\sum_i = V \int \frac{d^3k}{(2\pi)^3}$ and although these will not be solvable analytically we can obtain an approximate result by expanding. It is of interest to note that we can compare the results we get out of doing this with the previous derivation with Maxwell-Boltzmann statistics, and we find that for either 1 particle or in the high temperature limit things will agree. You will get to explore some of these limits in the first assignment.
