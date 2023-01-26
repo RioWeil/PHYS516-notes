@@ -42,11 +42,11 @@ Where $\mu$ runs over the vectors that point to the nearest neighbours of $x$ (s
 
 This is almost the Ising model; we can also add a coupling term to an external magnetic field:
 \begin{equation}
-    H_{B} = B\sum_x \sigma_x
+    H_{B} = -B\sum_x \sigma_x
 \end{equation}
-So the Ising Hamiltonian is:
+where the spins will want to align with $B$ so as to lower the energy. So the Ising Hamiltonian is:
 \begin{equation}
-    H = H_{interaction} + H_{B} = -J \sum_{x, \mu}\sigma_{x}\sigma_{x+\mu} +  B\sum_x \sigma_x.
+    H = H_{interaction} + H_{B} = -J \sum_{x, \mu}\sigma_{x}\sigma_{x+\mu} - B\sum_x \sigma_x.
 \end{equation}
 This simple two-parameter ($J, B$) model is already quite interesting. From it we will learn about universality - phase transitions tend to be the same for a large number of microsystems, e.g. the critical behavior for the Ising model and for liquid gas phase transition is the same. So this is why we can get away with studying something so simple.
 
@@ -59,7 +59,7 @@ and we would then like to calculate the free energy $F$, which is a function of 
 \begin{equation}
 F[T, B, N] = -k_B T \ln Z
 \end{equation}
-if we can find $F$, we can get all sorts of physical quantities, e.g. magnetization, susceptibility etc. For example we have:
+if we can find $F$, we can get all sorts of physical quantities, e.g. magnetization, susceptibility etc. For example we have the magnetization (average sum over all spins):
 \begin{equation}\label{eq-magnetization}
     M = \left.-\dpd{F}{B}\right|_{N, T} = \frac{\sum_{\text{spins}}(\sum_x \sigma_x)e^{-H/k_B T}}{Z}
 \end{equation}
@@ -70,21 +70,21 @@ As mentioned previously, we will assume that $N \to \infty$ (thermodynamic limit
     \centering
     \includegraphics{Images/fig-Isingphasediagramboundaries.pdf}
     
-    \caption{Phase Diagram Boundaries for the Ising Model, plotting temperature $T$ and magnetization $M$. As $B = \pm \infty$, the spins want to align downwards ($M < 0$)/upwards($M > 0$) respectively. As $T \to \infty$, all configurations are equally likely and so $M = 0$. At $T = 0$, all spins aligning minimizes the energy and so for $B < 0$ we have $M = N$ and for $B > 0$ we have $M = -N$. At $T = 0, B = 0$ there is a first order phase transition.}
+    \caption{Phase Diagram Boundaries for the Ising Model, plotting temperature $T$ and magnetization $M$. As $B = \pm \infty$, the spins want to align all upwards ($M = N$)/downwards ($M = -N$) respectively. As $T \to \infty$, all configurations are equally likely and so $M = 0$. At $T = 0$, all spins aligning minimizes the energy and so for $B < 0$ we have $M = -N$ and for $B > 0$ we have $M = N$. At $T = 0, B = 0$ there is a first order phase transition.}
     \label{fig-Isingphasediagramboundaries}
 \end{figure}
 
 Note that as $T \to \infty$, we would first notice that our lab had burned down, but before that we would also notice that our material is no longer a ferromagnetic; it is a paramagnet with $M = 0$. We can see this from our expression for $M$ in Eq. \eqref{eq-magnetization}, where if $T \to \infty$ then $e^{-H/k_B T} = 1$ and so the up and down spins have equal weight, so the net summation comes out to zero.
 
-At $B = \pm \infty$, we have $M \neq 0$. Specifically, if $M = \infty$ then the spins want to align downward so $M < 0$ and if $M = -\infty$ then the spins want to align upwards so $M > 0$. As the temperature goes to zero, we are interested in the lowest energy state of the Hamiltonian. As all the spins are aligned, this minimizes the energy so actually we find $M = N$ for all $B < 0, T = 0$ and $M = -N$ for all $B > 0, T = 0$. What happens then at $B = 0$? We have a phase transitions between the two domains. We have a first order phase transition there where the magnetization completely flips.
+At $B = \pm \infty$, we have $M \neq 0$. Specifically, if $M = \infty$ then all the spins want to align upwards so $M = N$ and if $M = -\infty$ then the spins want to align downwards so $M = -N$. As the temperature goes to zero, we are interested in the lowest energy state of the Hamiltonian. As all the spins are aligned, this minimizes the energy so actually we find $M = -N$ for all $B < 0, T = 0$ and $M = N$ for all $B > 0, T = 0$. What happens then at $B = 0$? We have a phase transitions between the two domains. We have a first order phase transition there where the magnetization completely flips.
 
-What does the order of the phase transition mean? It refers to the number of the derivatives we can take of the free energy before the derivative does not exist. Here, $M = -\text{sign}(B) N$, and the derivative of this does not exist at $B = 0$; so the first derivative of $F$ exists but the second one does not, so it is a first order phase transition. This comes from the Landau classification of phase transitions. This is not the full story; we have discovered many topological phases in recent times, and it could be argued that the classification of phases is not yet complete. If we integrate, at $T = 0$ we find $F = -J\abs{B}$; this is continuous but not differentiable so the phase transition is first order.
+What does the order of the phase transition mean? It refers to the number of the derivatives we can take of the free energy before the derivative does not exist. Here (at $T = 0$), $M = \text{sign}(B) N$, and the derivative of this does not exist at $B = 0$; so the first derivative of $F$ exists but the second one does not, so it is a first order phase transition. This comes from the Landau classification of phase transitions. This is not the full story; we have discovered many topological phases in recent times, and it could be argued that the classification of phases is not yet complete. If we integrate, at $T = 0$ we find $F = J\abs{B}$; this is continuous but not differentiable so the phase transition is first order.
 
 \begin{figure}[htbp]
     \centering
     \includegraphics{Images/fig-FT0Ising.pdf}
     
-    \caption{Plot of $F$ at $T = 0$ as a function of $B$. The free energy is continuous but not differentiable, and hence there is a first-order phase transition at $B = 0$. The slope of the free energy is $J/-J$.}
+    \caption{Plot of $F$ at $T = 0$ as a function of $B$. The free energy is continuous but not differentiable, and hence there is a first-order phase transition at $B = 0$. The slope of the free energy is $-J/J$.}
     \label{fig-FT0Ising}
 \end{figure}
 
@@ -120,7 +120,7 @@ We consider the 1-D Ising model, which is just a chain of classical spins.
 
 The Hamiltonian takes the form:
 \begin{equation}
-    H = -H\sum_{n=1}^{N-1}\sigma_n \sigma_{n+1} + B\sum_n \sigma_n
+    H = -H\sum_{n=1}^{N-1}\sigma_n \sigma_{n+1} - B\sum_n \sigma_n
 \end{equation}
 The route to the solution here is just a brute-force calculation of the partition function:
 \begin{equation}
@@ -144,7 +144,7 @@ We can then write the partition function as:
 \end{equation}
 what does this buy us? Because $T_{ab}$ is real and symmetric, it can be diagonalized by a similarity transform. So, $T$ can be written as:
 \begin{equation}
-    T = R\Lambda R^T = \m{\cos\theta & \sin\theta \\ -\sin\theta & \cos\theta}\m{t_+ & 0 \\ 0 & t_-}\m{\cos\theta & -\sin\theta \\ \sin\theta & \cos\theta}
+    T = R\Lambda R^T = \m{\cos\theta & -\sin\theta \\ \sin\theta & \cos\theta}\m{t_+ & 0 \\ 0 & t_-}\m{\cos\theta & \sin\theta \\ -\sin\theta & \cos\theta}
 \end{equation}
 with $R$ rotation matrices. The partition function then becomes:
 \begin{equation}

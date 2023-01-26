@@ -1,0 +1,13 @@
+\documentclass[10pt]{standalone}
+\usepackage{commands}
+
+\begin{document}
+\begin{tikzpicture}
+    \draw[] (0, 0) -- (8, 0);
+    \foreach \i in {0,...,8} {
+        \filldraw (\i, 0) circle (2pt);
+    };
+    \draw[red, thick] (2.5, -0.5) -- (2.5, 0.5);
+    \draw[red, thick] (6.5, -0.5) -- (6.5, 0.5);
+\end{tikzpicture}
+\end{document}
