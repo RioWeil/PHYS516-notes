@@ -1,0 +1,15 @@
+\documentclass[10pt]{standalone}
+\usepackage{commands}
+\begin{document}
+\begin{tikzpicture}
+    \draw[thick, latex-latex] (0, -2) -- (0, 2);
+    \draw[thick, latex-latex] (-2, 0) -- (2, 0);
+    \draw[smooth, samples=200, domain=-1.8:1.8, blue] plot (\x, {2.5*(0.2*(\x)^2 - ln(cosh(2*0.1*\x)))});
+    \node[above] at (2, 0) {$\phi$};
+
+    \draw[thick, latex-latex] (0+5, -2) -- (0+5, 2);
+    \draw[thick, latex-latex] (-2+5, 0) -- (2+5, 0);
+    \draw[smooth, samples=200, shift={(5, 0)}, domain=-1.8:1.8, blue] plot (\x, {2.5*(1*(\x)^2 - ln(cosh(2*\x)))});
+    \node[above] at (7, 0) {$\phi$};
+\end{tikzpicture}
+\end{document}
