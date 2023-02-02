@@ -1,0 +1,172 @@
+\section{Landau Theory}
+
+% Example oral exam q: Difference between canonical and microcanonical ensemble
+% Example oral exam q: What is Landau theory
+
+\subsection{Introduction and Motivation}
+Last time, we discussed the infinite-range Ising model. It is a nice model that we can write down and solve analytically. We ended last lecture by calculating the critical exponents of the model. This model does have some shortcomings; of course it is completely physically unrealistic, and it also does not let us calculate correlation functions (and there are some critical exponents that come from these). A lot of the discussion of it was poached from Pairisi's book on statistical field theory; there he has a hand-wavey argument about how to get correlation functions from the model (which Gordon does not understand - so we do something else)! 
+
+We note that if we are interested in the behaviour near the singular points (i.e. characterizing the critical exponents) then a lot of the fine-grained details of the model does not matter. We introduced Landau theory, which predicts the same (mean-field) critical exponents as the infinite range Ising model, but also can do more - e.g. providing us with the correlation function for spins. The main attribute which we discussed and which we will continue to discuss is the correlation length, which describes the (exponential) degree to which correlations die off with distance\footnote{We will have the machinery to explain why this decay is exponential by the end of the course. For now, we take it as a result.} The correlation length has a power law behaviour, and the exponent on the $\frac{1}{\abs{x - y}}$ also is a critical exponent.
+
+\subsection{The Landau Potential and Free Energy}
+To discuss correlation functions, we require some position-dependent behavior. A motivation for how to do this - iron has some microscopic (fine-grained) crystal structure, but macroscopically the iron looks like a continuum and we cannot see the lattice. In this limit, we see the magnetization smoothly varying like a continuous field. So, let us write down the Landau potential:
+\begin{equation}
+    \Gamma[\phi] = \int dx \left[\tau \frac{\phi^2(x)}{2}  + \lambda \frac{\phi^4(x)}{4!} -B(x)\phi(x) + \frac{1}{2}\nabla \phi \cdot \nabla \phi\right]
+\end{equation}
+where $\tau \sim \left(\frac{T}{T_c} - 1\right)$, $\lambda$ is some (positive) coupling constant, and $B$ is the magnetic field strength. The first three terms already looks like a Hamiltonian, but we want something to ``smooth it out'' as with just those three each point is independent of one another and there is nothing stopping some very large fluctuations in $\phi$. So the last term penalizes this, by ensuring that large fluctuations are unfavourable. Note that Landau theory is also able to acommodate different kinds of spins, e.g. not just $\pm 1$ at each site but pointing in some arbitrary direction (but for now let us just stick with the simplest case).
+
+Now, the idea is to get the free energy as:
+\begin{equation}
+    F = \inf_\phi \Gamma[\phi]
+\end{equation}
+and this gets us into the realm of variational calculus/functional calculus. This is because $\Gamma$ is a functional - it is a function of the field $\phi$ which itself is a function of position. We wish to minimize $\Gamma$ over all $\phi$s, which requires some functional calculus in general; but here this is not necessary.
+
+If $B \leq 0$ and $\tau > 0$, then all the terms are positive and so the easy minimum is taking $\phi = 0$. 
+
+If $B = 0$ and $\tau < 0$, then now things are not so trivial. In this case we write the potential as:
+\begin{equation}
+    \Gamma = \int dx \left[\frac{1}{2}\nabla \phi \cdot \nabla \phi + \frac{\lambda}{4!}\left(\phi^2 + \frac{\tau 4!}{4\lambda}\right)^2 - \frac{\lambda}{4}\left(\frac{\tau 4!}{4\lambda}\right)^2\right]
+\end{equation}
+Here, the potential is minimized if the first two terms vanish (the last term is just a constant). The first term is minimized if $\phi$ is a constant, and the second (positive) term is then minimized by taking it to zero:
+\begin{equation}
+    \phi = \pm \sqrt{\frac{4!}{4\lambda}(-\tau)}
+\end{equation}
+and here we already recover the square root scaling of the magnetization (i.e. the critical exponent of $\frac{1}{2}$) that we discussed last class.
+
+Now, let us plug the minimizing $\phi$ back into $\Gamma$ and solve for the free energy $F$:
+\begin{equation}
+    F = \begin{cases}
+        0 & B \leq 0, \tau > 0
+        \\ V\frac{\lambda}{4}\left(\frac{4!}{4\lambda}\right)^2\tau^2 & B = 0, \tau < 0
+    \end{cases}
+\end{equation}
+
+\subsection{Finding Critical Exponents; Specific Heat, Equation for $\phi$, Susceptibility}
+Now, the specific heat can be obtained as:
+\begin{equation}
+    C = -T\dpd{^2F}{T^2} \sim \begin{cases}
+        \abs{\tau}^{-\alpha} & \tau > 0
+       \\  \abs{\tau}^{-\alpha'} & \tau < 0
+    \end{cases} \quad \alpha = \alpha' = 0
+\end{equation}
+where the critical exponents are found to be zero because there is no singularity! Again we recover the mean-field critical exponents from alst time.
+
+The next critical exponents are not quite as simple to calculate, but they also aren't that bad. We consider the equation for $\phi$; this can be obtained by doing a variational minimization of $\Gamma$:
+\begin{equation}
+    (-\nabla^2 + \tau)\phi + \frac{\lambda}{3!}\phi^3 - B = 0
+\end{equation}
+If we assume $\phi$ is a constant and $\tau = 0$ (i.e. $T = T_c$) then we find:
+\begin{equation}
+    \phi \sim B^{1/3}
+\end{equation}
+or equivalently:
+\begin{equation}
+    B \sim \phi^3
+\end{equation}
+which is another critical exponent (that we recover last time). Every exponent we derive here will agree with what we found last class, and we can further define more.
+
+Recall the susceptibility, defined as:
+\begin{equation}
+    \chi = \dpd{m}{B}
+\end{equation}
+Note that while $\phi$ is more general than $m$, after we have solved everything, we can identify $m = \phi$. To this end, we should explore how this solution $\phi$ changes as we vary $B$. Again assuming that $\phi$ does not vary in position, we have:
+\begin{equation}
+    \tau \phi + \frac{\lambda}{3!}\phi^3 - B = 0
+\end{equation}
+Taking the derivative w.r.t. $B$ we find:
+\begin{equation}
+    \left(\tau + \frac{\lambda}{2!}\phi^2\right)\dpd{\phi}{B} - 1 = 0
+\end{equation}
+We then find that:
+\begin{equation}
+    \chi \sim \begin{cases}
+        \frac{1}{\tau} & \tau > 0
+        \\ -\frac{1}{2\tau} & \tau < 0
+    \end{cases}
+\end{equation}
+this is called the \emph{Curie-Weiss Law} (and also gives us two more critical exponents). This is not an exact fit to the experimentally measured susceptibility of Iron, but it was close enough that it did take a little while to notice a discreptancy.
+
+\subsection{Calculating Correlation Functions}
+To actually calculate a correlation function, we need to re-introduce spatial dependence into our field. We are interested in the eqaution:
+\begin{equation}
+    \left(-\nabla^2 + \tau + \frac{\lambda}{2!}\phi^2(x)\right)\chi(x, y) = \delta(\v{x} - \v{y})
+\end{equation}
+where:
+\begin{equation}
+    \chi(x, y) = \avg{m(x)m(y)} - \avg{m(x)}\avg{m(y)}
+\end{equation}
+is the connected correlation function. Note that our problem has now reduced to finding a Green function. The standard way to approach this is a plane wave ansatz/fourier transform.
+
+Let us study the special case of $\tau = 0$ ($T = T_c$) and $\phi = 0$. In this case, we have the very simple equation:
+\begin{equation}
+    -\nabla^2 \chi = \delta(\v{x} - \v{y})
+\end{equation}
+if $D = 3$, then this is just the famous Coloumb potential and so the solution is:
+\begin{equation}
+    \chi = \frac{1}{4\pi \abs{\v{x} - \v{y}}}
+\end{equation}
+where here the critical exponent is $\eta = 0$ (recalling that $\chi \sim \frac{1}{\abs{\v{x} - \v{y}^{-D + 2 - \eta}}}$). 
+
+A question to test your mathematical intuition - what do solutions to this equation look like in other dimensions? By dimensional analysis, we have:
+\begin{equation}
+    \chi \sim \frac{1}{\abs{\v{x} - \v{y}}^{D - 2}}
+\end{equation}
+and so $\eta = 0$ in any dimension for this special case, actually! A quick review of the dimensional analysis argument; $[\delta] = [X]^{-d}$ (i.e. inverse of the dimension) and so I want something which taking two spatial derivatives (i.e. subtract two dimensions) yields dimensions of $-D$ and so the dimensions of $\chi$ must be $-D + 2$. 
+
+Away from the critical point when $\tau \neq 0$, things look bad; but then it is balanced out by $\frac{\lambda}{2!}\phi^2(x)$... then we have to be a bit more sophisticated, and consider that the Green function decays exponentially, i.e. know that $\chi(x, y) \sim e^{-\abs{x-y}/\eta}$. The coefficient can be obtained via dimensional analysis, again; the argument of a transcendental function must be dimensionless, and so we conslude that:
+\begin{equation}
+    \eta = \frac{1}{\tau^{1/2}}
+\end{equation}
+The last thing we have not derived is how this exponential decay comes about. We could do this by taking the fourier transform of the equation, then for large $\abs{\v{x} - \v{y}}$ carry out the integral via saddle point technique which gives the exponential decay.
+
+\subsection{Parameters in Landau Theory}
+What are parameters/inputs into the Landau theory? Note that since the integral goes over the volume, the number of spins is implicitly included. So we won't bother even including this on our list. 
+\begin{enumerate}[(i)]
+    \item $\tau \sim (T - T_c)$.
+    \item Dimension $D$ - it appears in the integral, and in the derivatives, and if we have to solve the differential equation, this of course would highly depend on the dimensionality of the model.
+    \item Symmetry and number of components of magnetization (here just one - $\phi$ is a function spits out one real number). Also, the fact that $\Gamma$ has a zero is encoded by the fact that the theory is symmetric under interchange of $\phi \leftrightarrow -\phi$ (if one also puts $B \leftrightarrow -B$).
+    \item $\lambda > 0$ - Required for stability of the model.
+\end{enumerate}
+This is not very many parameters, but we get a lot of output out of it!
+
+When this is applied to a superconductor, then this becomes Landau-Ginzberg theory (one puts in the electromagnetic field in the natural way).
+
+One more comment about Landau theory - it can be used to describe first order phase transitions, in addition to second order phase transitions. We can add more terms, then we get two (or more) extrema with an energy barrier between them. The first order phase transition (e.g. bubble nucleation) will be when the two extrema have the same energy (the crossover point when they are both the global minima). There is less to study here as there are no associated critical exponents, but it is nevertheless something that the theory is capable of accommodating. 
+
+Q - as it is, this looks identical to the massless scalar field theory with $m = \tau$ if $B = 0$. Is there a deeper correspondence? The answer will turn out to be yes, as we will learn as the term progresses (there is identical mathematical structure here, but it is worth noting that the theory here is completely classical). Somehow Landau guessed the classical limit of quantum field theory from this modelling.
+
+\subsection{$O(3)$ (Vector) Model}
+If we want to analyze something else, e.g. a piece of iron where the magnetization can point in some arbitrary direction in $\RR^3$, we can modify the theory we wrote above by changing $\phi$ to be a three-component function $\gv{\phi}$ (and $B \to \v{B}$ to be a three-component field, rather than just a projection along a single axis). 
+
+This is called the $O(3)$ model as the spins can point in three directions. Note that we can still place our lattice in an arbitrary dimension. We could also allow our spins to point in more directions ($O(N)$ model). Our field is now a vector:
+\begin{equation}
+    \gv{\phi} = \m{\phi_1 \\ \phi_2 \\ \phi_3}
+\end{equation}
+Our Landau potential genrealizes in the expected way:
+\begin{equation}
+    \Gamma = \int d^3x \left(\frac{1}{2}\nabla_i \phi_j\nabla_i \phi_j + \frac{\tau}{2}\gv{\phi}^2 + \frac{\lambda}{4!}\left(\gv{\phi}^2\right)^2 - \v{B} \cdot \gv{\phi}\right)
+\end{equation}
+Note that we are allowed to add another term, actually; in three dimensions there is a further rotational symmetry (we can rotate the space and leave the space the same, or now we can rotate the spins and leave the space the same). So, we could add a term of the form $(\nabla \cdot \gv{\phi})^2$ - but this would have less symmetry (e.g. we could add this term in the case where we have phonons in the lattice, which breaks this two-fold rotational symmetry; we would have to rotate the space and the lattice. This added term corresponds to this broken two-fold rotational symmetry, as the function is no longer invariant under the two types of rotations).
+
+To go to superconductivity, there is a breakdown of phase symmetry of the wavefunction, so we add a complex phase function (and then this becomes Landau-Ginzeberg theory, but we don't discuss this here).
+
+\subsection{Teaser - Spherical Model}
+Next class we will discuss how Landau theory is actually wrong. One demonstration of this was the exact solution of the 2D Ising model, which does not agree with the mean field Landau theory predictions. 
+
+The spherical model will provide us another route to showing how Landau theory is not correct. It is in some sense a simplified Ising model, and one which we will be able to solve analytically (somewhat).
+
+The Hamiltonian is given by:
+\begin{equation}
+    H = -J\sum_{x, i}\sigma_x \sigma_{x + i} - B \sum_x \sigma_X
+\end{equation}
+where the spins sit on a regular lattice in an arbitrary dimension (a line in 1D, a square lattice in 2D, a cubic lattice in 3D, a hypercube in 4D and so on...) $i$ labels the connections between the lattice sites, and there is a coupling of neighbours (e.g. see Fig. \ref{fig-2DIsing}).
+
+This looks like the Ising model (and has the same Hamiltonian) but it is not the Ising model. This is because we will allow $\sigma_x$ to be any real number, not just $\pm 1$, rather $\sigma_x \in (-\infty, \infty)$. This simplifies things because continuous math is easier than discrete math.
+
+The obvious problem with this is it seems as though we can have an arbitrary amount of magnetization to the system (and hence the model is unstable); we therefore impose the constraint:
+\begin{equation}
+    \sum_x \sigma_x^2 = N
+\end{equation}
+where $N$ is the number of sites. While it is not obvious, one is able to show that all spins pointing up or downwards is the degenerate energy minima of the system.
+
+Next time, we will be able to ``solve'' the system (up to some leftover functions) and we will be able to analyze the critical exponents of the model. For dimensions $D \geq 4$ we will find that the critical exponents match exactly those of Landau/mean field theory. For $D < 4$ this is not the case. 
