@@ -1,0 +1,112 @@
+\section{The Spherical Ising Model, Continued}
+% Exam format will be oral
+Last time we began to discuss the Spherical Ising model - we treat this in detail as a lot of the techniques and ideas will follow us to the more complex models.
+
+\subsection{Review}
+There was a slight error in the formulas last day; so let's review a bit and correct those. We had the partition function, which came out of the Gaussian integral:
+\begin{equation}
+    Z[T, B, N] = e^{\frac{\beta^2}{2(k_B T)^2}\sum_{xy}\Delta^{-1}(x, y) - \frac{1}{2}\Tr\ln(\frac{\Delta}{2\pi})}
+\end{equation}
+Where $\Delta(x, y)$ is a $N \times N$ (huge! but sparse) matrix. We managed to find its eigenvalues and eigenvectors which were just plane waves $e^{ip \cdot x}$; the eigenvalues were:
+\begin{equation}
+    \Delta(p) = \frac{J}{k_B T}\sum_i 4\sin^2\frac{p_i}{2} + 2(\mu - \frac{JD}{k_B T})
+\end{equation}
+so we can write the matrix as:
+\begin{equation}
+    \Delta(x, y) = \int_{-\pi}^\pi \frac{dp_1}{(2\pi)} \ldots \frac{dp_D}{(2\pi)} e^{ip(x - y)}\Delta(p)
+\end{equation}
+
+\subsection{Finding the Free Energy}
+Now, we're supposed to take the trace of the logarithm of this matrix in the expression above. This is easy to obtain; in diagonal form, we can just take the logarithm of the eigenvalues:
+\begin{equation}
+    \ln \Delta = \int \frac{d^D p}{(2\pi)^D} e^{ip(x - y)}\ln \Delta(p)
+\end{equation}
+Then:
+\begin{equation}
+    \Tr \ln \Delta = \sum_x \bra{x}\ln \Delta(p) \ket{x} = N\int \frac{d^D p}{(2\pi)^D}\ln \Delta(p)
+\end{equation}
+the place where we messed up last time is forgetting the $N$; this is quite important - we added a $\mu \sum_x \sigma_x^2$ to the exponent and to add a constraint (Recall - in the actual spherical model, we added a constraint in the form of $\delta(\sum_x \sigma_x^2 - N)$, and we made a slightly different constraint of $\avg{\sum_x \sigma_x^2} = N$ instead which had the effect of adding $\mu \sum_x \sigma_x^2$ to the exponent). In the large $N$ limit, the two constraints are the same (as in this $N \to \infty$ limit, the fluctuations go away $\sim \frac{1}{\sqrt{N}}$, so the average exactly reproduces the actual constraint) - that is to say, the mean spherical model approaches the actual spherical model.
+
+Note that $\Delta^{-1}$ is obtained by inverting the eigenvalues in the diagonal form:
+\begin{equation}
+    \Delta^{-1}(x, y) = \int_{-\pi}^\pi \frac{dp_1}{(2\pi)} \ldots \frac{dp_D}{(2\pi)}e^{ip(x-y)}\frac{1}{\Delta(p)}
+\end{equation}
+Now, we can obtain the free energy from the partition function. 
+\begin{equation}
+    F[T, B, N] = -\frac{NB^2}{2J}\frac{1}{2\left(\mu - \frac{JD}{k_B T}\right)} + \frac{Nk_B T}{2}\int \frac{d^Dp}{(2\pi)^D}\ln \left[\frac{J}{k_B T}\sum_i 4\sin^2\frac{p_i^2}{2} + 2\left(\mu - \frac{JD}{k_B T}\right)\right]
+\end{equation}
+Note that if $p$ is real and small, then we have $\v{p}^2$ in the integral, and this is related to the fact that in this regime we have an additional symmetry. 
+
+\subsection{Constraints and Critical Behaviour}
+Let us introduce a parameter:
+\begin{equation}
+    \kappa^2 = 2\left(\mu - \frac{JD}{k_B T}\right)
+\end{equation}
+Also, remember that this is the free energy, and what is left to do is to impose the constraint:
+\begin{equation}
+    -\dpd{}{\mu}\ln Z = N \implies 1 - \frac{B^2}{(k_B T)^2}\frac{1}{\kappa^4} = \int \frac{d^Dp}{(2\pi)^D} \frac{1}{\frac{J}{k_B T}\sum_i 4\sin^2\frac{p_i}{2} + \kappa^2}
+\end{equation}
+where we have assumed the commutativity of the integral and derivative (OK as the integral is over a finite domain - the first Bruilloin zone). Now what is left to do is to find $\mu$ (equivalently - $\kappa$). One place to start is to consider the limit of $k_B T \gg J$ and $B = 0$. Then the equation becomes:
+\begin{equation}
+    1 = \frac{1}{\kappa^2} \implies \kappa = 1
+\end{equation}
+Now, we can ask what happens if we leave $B = 0$ and lower the temperature. We can answer that by taking the derivative w.r.t. the temperature. We then find:
+\begin{equation}
+    \dod{\kappa^2}{T} > 0
+\end{equation}
+so if we lower the temperature from $T = \infty$, $\kappa^2$ decreases. But nothing very dramatic can happen so long as $\kappa^2 \neq 0$. Because so long as that is true, the integrals are nonsingular. The drama happens when we let $\kappa^2 \to 0$; this we call the critical temperature. By setting $\kappa^2 = 0$ note we obtain a formula for the critical temperature:
+\begin{equation}
+    \frac{J}{k_B T_c} = \int \frac{d^Dp}{(2\pi)^D}\frac{1}{\sum_i 4 \sin^2 \frac{p_i}{2}}
+\end{equation}
+There is a subtlety, however; when $D$ is high enough, the above integral is just a number (that we can solve). But when $D$ is low enough, we actually have a singularity at $\v{p} = 0$! Specifically; when $D \leq 2$ we have a singularity (and when $D > 2$ things converge). So, when we take $D \to 2^+$ we find $T_c \to 0$. 
+
+Now if we consider $B = 0, T \geq T_c$:
+\begin{equation}
+    \left(\frac{J}{k_B T}\right)^2 \left(\frac{T}{T_c} - 1\right) = \kappa^2 \int \frac{d^Dp}{(2\pi)^D}\frac{1}{\sum_i 4\sin^2 \frac{p_i}{2}}\frac{1}{\left[\sum_j 4 \sin^2 \frac{p_j}{2} + \kappa^2 \frac{k_B T}{J}\right]}
+\end{equation}
+we want to solve for $\kappa^2$; this is of course impossible (the above equation is gross)! But we are only interested in $T$ in the vicinity of $T_c$. In this regime, the LHS is small and so is the RHS ($\kappa^2 \to 0$); we are interested in the nature in which $\kappa^2$ goes to zero. This depends on the dimension. 
+
+In $D > 4$, the above integral has a smooth limit as $\kappa^2 \to 0$; specifically $\kappa^2 \sim (T - T_c)$.
+
+In the intermediate regime of $2 < D \leq 4$, we can't smoothly take $\kappa^2$ to zero. So we need to be more careful. We study the $p$ integral in two regimes; $\sum_i p_i^2 \leq \Lambda^2$ and $\Lambda^2 \leq \sum_i p_i^2$ but inside the Bruilloin zone.
+
+Let's say we are in three dimensions; then the first Bruilloin zone looks like a cube with side length $2\pi$ and centered at the origin. The cutoff is then a small sphere inside this cube. 
+
+So in this internal regime (which is where all the drama happens):
+\begin{equation}
+    \left(\frac{J}{k_B T}\right)(T - T_c) = \int_{\v{p}^2 < \Lambda^2}\frac{d^Dp}{(2\pi)^D}\frac{1}{p^2\left(p^2 + \kappa^2 \frac{k_B T}{J}\right)} + C\kappa^2
+\end{equation}
+Now rescaling the integration variable:
+\begin{equation}
+    \left(\frac{J}{k_B T}\right)^2\left(\frac{T}{T_c} - 1\right) = \left(\frac{\kappa^2 k_B T}{J}\right)^{\frac{D}{2} - 2} \kappa^2 \int_{D^2 < \frac{\Lambda^2}{\kappa^2}}\frac{d^Dp}{(2\pi)^D}\frac{1}{p^2(p^2 + 1)} + C'\kappa^2
+\end{equation}
+So then for $2 < D \leq 4$ we learn that:
+\begin{equation}
+    \kappa^2 \sim (T - T_c)^{\frac{2}{D-2}}
+\end{equation}
+so, there is interesting behaviour here! Different from what happens in $D > 4$. This will actually end up giving us information about critical exponents. This is in the regime where we are approaching the phase transition from above (higher temperature).
+
+So, we've solved everything for $\kappa^2$ that we need. Now, we can finish the job here by determining how the free energy scales. By taking the second derivative of this and looking at the specific heat, we can then obtain the critical exponent (lots of work - but we are able to obtain it analytically)!
+
+\subsection{Free Energy and Critical Exponents}
+We have:
+\begin{equation}
+    F[T > T_c, B = 0, N] = k_B TN\left(\frac{JD}{k_B T} + \frac{1}{2}\int \frac{d^Dp}{(2\pi)^D}\ln\left[\frac{2J}{k_B T} \sum_i 4\sin^2 \frac{p_i}{2} + \kappa^2\right] \right)
+\end{equation}
+Note that where $\kappa^2 = 0$ and $p = 0$ we have that the logarithm becomes non-analytic. The regular contributions (outside of the small sphere) is $\sim \kappa^2$, and inside the small sphere we can use scaling arguments to find the behaviour. Here we get this another way; we use some integration technology to attempt the integral and extract out the behaviour this way (if you go on to take QFT, these tricks will come up again)! We write the integral as:
+\begin{equation}
+    F[T > T_c, B = 0, N] = -\lim_{s \to 0}\dod{}{s}\left(\frac{1}{2}\int \frac{d^D p}{(2\pi)^D} \left[\frac{J}{k_B T}\sum_i 4\sin^2 \frac{p_i}{2} + \kappa^2\right]^{-s}\right)
+\end{equation}
+which is the beginning of Zeta function regularization (championed by Stephen Hawking for analysis of quantum gravity - does a lot of miraculous things, and he invoked it because it preserves symmetry). Now, we use Schwinger's trick (add $1 = \frac{\Gamma(s)}{\Gamma(s)}$):
+\begin{equation}
+    F[T > T_c, B = 0, N] = -\lim_{s \to 0}\dod{}{s}\left(\frac{1}{\Gamma(s)}\int_0^\infty dt t^{s-1}\frac{1}{2}\int \frac{d^Dp}{(2\pi)^D} \exp(-t\frac{J}{k_B T}\sum_i 4\sin^2\frac{p_i}{2} - t\kappa^2)\right)
+\end{equation}
+This might seem counterproductive as we seem to be adding integrals instead of doing them. But there is a point! Since we have the exponential of a sum, we can just do the integral over one of the dimensions of $p$ and then take the $D$-fold product.
+\begin{equation}
+    \int_{-\pi}^\pi \frac{dp}{2\pi} e^{-t\left(\frac{J}{k_B T}4\sin^2 \frac{p}{2}\right)} = e^{-2t\frac{J}{k_B T}}I_0(2t\frac{J}{k_B T})
+\end{equation}
+where $I_0$ is the modified Bessel function. Now, we want to do an expansion in large $t$:
+\begin{equation}
+    \int_{-\pi}^\pi \frac{dp}{2\pi} e^{-t\left(\frac{J}{k_B T}4\sin^2 \frac{p}{2}\right)} = \left(\frac{k_B T}{J}\right)^{1/2}\frac{1}{t^{1/2}}e^{2t\frac{2J}{k_B T}}\left(1 + O(\frac{1}{t})\right)
+\end{equation}
+Now if we plug things in, we see that the exponentials cancel, and we get $\frac{1}{t^{D/2}}$. We then get the $\kappa$ dependence by scaling $t$, and we get $\kappa$ to a power which depends on the dimension. The exponent will be $< 2$ (specifically - $\frac{D-2}{2}$) when $D < 4$ so the critical exponent on the specific heat will be determined. More about this next time!
