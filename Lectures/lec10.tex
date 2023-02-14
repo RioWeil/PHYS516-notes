@@ -1,0 +1,173 @@
+\section{The Spherical Ising Model (Concluded), 2-D Ising Model Intro}
+
+\subsection{Critical Points in the Spherical Model}
+We found the free energy of the (mean) spherical Ising model to be:
+\begin{equation}
+    F[T, B, N] = k_B T N \inf_{\kappa^2}\left[-\frac{JD}{k_B T} - \kappa^2 + \frac{1}{2}\int \frac{d^Dp}{(2\pi)^D} \ln\left(\frac{J}{k_B T}\sum_i 4\frac{\sin^2 p_i}{2} + \kappa^2\right)- \frac{B^2}{2(k_B T)^2}\frac{1}{\kappa^2}\right]
+\end{equation}
+where we had cast finding the free energy into a minimization problem in $\mu$ ($\kappa^2$). We then set out to study how this behaved. It's relatively simple after we see where the singularities in the free energy come from - we are interested not in the points at which $F$ are smooth but rather where $F$ is singular as this heralds a phase transition. The phase diagram we expect to look like Fig. \ref{fig-sphericalmodelphasediagram}.
+
+Consider the case where $\v{B} = \v{0}$. If we try to Taylor expand the above in $\kappa^2$ (around 0) this creates a problem - at high enough order the integral will diverge in the small $\v{p}$ regime (as the integral goes as $(\kappa^2)^n \int d^D p \frac{1}{(p^2)^n}$). So, the expression is not analytic at $\kappa^2 = 0$. We also learn from this that the singularities come from the small $\v{p}$/long wavelength modes of the field. This will be a recurring theme and will be a key observation when we begin to discuss the renormalization group. Note that if $\v{B} \neq \v{0}$ then things are terribly singular at $\kappa^2 = 0$ already. The above is actually a pretty complicated function of $\v{B}$, but our analysis is made simpler by having the critical point at $\kappa^2 = 0$. 
+
+If we look at the magnetization:
+\begin{equation}
+    m = -\frac{1}{N}\left.\dpd{F}{B}\right|_{T, N}
+\end{equation}
+there are two places where $\v{B}$ appears in the expression; one explicit, and one implicit dependence as $\kappa^2$ depends on $\v{B}$. But if we consider that we look for a minimization of $\kappa^2$ in terms of $B$, this term drops out, so:
+\begin{equation}
+    m = \frac{B}{k_B T \kappa^2}
+\end{equation}
+and since we know that the magnetization is nonzero in this region, $\kappa^2 = 0$ must be the critical point (as $B = 0$, so we need that $\kappa^2 \to 0$ as $B \to 0$) Along the line $T < T_c$, we can take $\kappa^2 = 0$, the $B$ term disappears (as $\v{B} = \v{0}$), and things are not very complicated. But as we approach the second order phase transition point, $\kappa^2 \neq 0$ and things begin to get more complicated.
+
+Now, we note that for $T > T_c$, $\kappa^2$ smoothly varies before reaching $1$ at $T = \infty$. The only jump/non-smooth behaviour in $\kappa^2$ is at $T = T_c$. We have the expression which we can solve for $T_c$:
+\begin{equation}
+    1 - \frac{B^2}{(k_B T)^2}\frac{1}{\kappa^4} = \int \frac{d^Dp}{(2\pi)^D} \frac{1}{\frac{J}{k_B T}\sum_i 4\sin^2\frac{p_i}{2} + \kappa^2}
+\end{equation}
+in $D = 2$, $T \to 0$ as $\kappa^2 \to 0$ so the phase transition line shrinks down to a point. We're talking here like we can vary the dimension as a parameter; mathematically this is useful, and by considering things like fractal lattices this is also something that is experimentally accessible. If $D > 2$, then the above equation has a solution with $T_c \neq 0$:
+\begin{equation}
+    \frac{J}{k_B T_c} = \int \frac{d^Dp}{(2\pi)^D}\frac{1}{\sum_i 4\sin^2\frac{p_i}{2}}
+\end{equation}
+the RHS is finite and so there exists some $T_c \neq 0$. 
+
+Now, when $B = 0, T > T_c$ (but $T \sim T_c$) we can analyze the scaling of the above formula. We summarize the results based on  dimensionality: In Table \ref{table-sphericalscaling}.
+
+\begin{table}[htbp]
+    \centering\begin{tabular}{|c|c|}
+        Dimensions & Scaling
+        \\ \hline $D \leq 2$ & $T_c = 0$
+        \\ $2 < D < 4$ & $\kappa^2 \sim \left(\frac{T}{T_c} - 1\right)^{\frac{2}{D - 2}}$
+        \\ $D > 4$ & $\kappa^2 \sim \left(\frac{T}{T_c} - 1\right)$
+        \\ $D = 4$ & $\kappa^2\ln\frac{1}{\kappa} \sim \left(\frac{T}{T_c} - 1\right)$
+    \end{tabular}
+    \caption{Scalings of the spherical model.}
+    \label{table-sphericalscaling}
+\end{table}
+
+Note that for $D > 4$ the scaling is the same as that predicted by mean field theory; for $2 < D < 4$ the predictions are different.
+
+We can now plug things back into the free energy expression. From above $T_c$ we can ignore the $\frac{B^2}{(k_B T)^2}\frac{1}{\kappa^4}$, from below what we do is we note that $\frac{B^2}{(k_B T)^2}\frac{1}{\kappa^4} = m^2$, and so we get back:
+\begin{equation}
+    1 - m^2 = \frac{T}{T_c}
+\end{equation}
+and so:
+\begin{equation}
+    m = \pm \sqrt{1 - \frac{T}{T_c}}
+\end{equation}
+which looks very mean-field theory (exponent of $1/2$). Let us summarize the critical exponents that we get.
+
+\subsection{Critical Exponents of the Spherical Model}
+\begin{table}[htbp]
+    \centering\begin{tabular}{|c|c|c|c|c}
+        & $\alpha$ & $\beta$ & $\gamma$ & $\delta$
+        \\ \hline Mean Field Theory & $0$ & $\frac{1}{2}$ & $1$ & $3$
+        \\ \hline Spherical Model ($2 < D < 4$) & $\frac{D - 4}{D - 2}$ & $\frac{1}{2}$ & $\frac{2}{D-2}$ & $\frac{D + 2}{D-2}$ 
+        \\ \hline Spherical Model ($D > 4$)  & $0$ & $\frac{1}{2}$ & $1$ & $3$
+    \end{tabular}
+    \caption{Critical exponents of the spherical model and comparison with mean field theory.}
+    \label{table-sphericalcriticalexponents}
+\end{table}
+so for the spherical model we would say that MFT is exact for $D > 4$ and fails for $2 < D < 4$. The logical lesson of the story is that mean field theory cannot always work. It took a lot of effort to find evidence for this, but we have now done it!
+
+The dimensionality of the above results came from the existence of integrals that look like:
+\begin{equation}
+    \int \frac{d^D p}{(p^2)^{\#}}
+\end{equation}
+which gives us the $2 < D < 4$ behaviour. For $D > 4$ the dimension is large enough such that the integrals always converge.
+
+And let us recall how the critical exponents are related to the scaling of physical quantities:
+\begin{equation}
+    C \sim -\dpd[2]{F}{\tau} \sim \left(\frac{T}{T_c} - 1\right)^\alpha
+\end{equation}
+the magnetization as:
+\begin{equation}
+    m \sim \left(1 - \frac{T}{T_c}\right)^\beta
+\end{equation}
+the susceptibility as:
+\begin{equation}
+    \chi = \dpd{m}{B} \sim \left(\frac{T}{T_c} - 1\right)^{-\gamma}
+\end{equation}
+and at $T = T_c$:
+\begin{equation}
+    B \sim m^\delta
+\end{equation}
+
+We are now done with the spherical model!
+
+\subsection{Aside - The saddle point integral}
+We consider integrals of the form:
+\begin{equation}
+    I = \int_{-\infty}^\infty dx e^{-Nf(x)}
+\end{equation}
+where $N$ is some sort of ``volume'' which gets large and $f$ is a real valued function. The statement we have been going with is that we get a very good approximation of this by replacing:
+\begin{equation}
+    I = \int_{-\infty}^\infty dx e^{-Nf(x)} \approx e^{-N\inf f(x)}
+\end{equation}
+i.e. we replace the entire integral by the place where $f$ is the largest. This is perhaps intuitively justified (the integral should be dominated where it peaks). But we can justify this a little more carefully. First, we note that in order for the integral to converge, $f \to \infty$ as $x \to \pm \infty$. The actual saddle point techique involves summing over the all possible points for which $f'(x) = 0$, but the deepest one is the one that contributes the most, with the other points exponentially supressed (so we can usually ignore them). Note that there are integrals for which the saddle point technique gives the exact answer, and for this we would sum over all the points. For example, try at home the integral for the height of the sphere:
+\begin{equation}
+    \int d\phi \sin\theta d\theta e^{-N(1 + \cos\theta)}
+\end{equation}
+There is a whole science to this (and it is a useful one, e.g. for QFT) that is good to know exists. Note that there is a theorem that if you integrate over phase space and you integrate $e^{-NH(x, p)}$ then (modulo some factors) we exactly get the classical partition function. Note that however there are few interesting systems for this theorem actually applies as there are some topological constraints on the phase space for this to be exact (e.g. for the harmonic oscillator... so we aren't learning much).
+
+Ok but back from the tangent and now trying to justify the saddle point technique. Let's say we find:
+\begin{equation}
+   \left. \dpd{f}{x}\right|_{x = x_0} = 0
+\end{equation}
+If we change the integration variable to $x = x_0 + y$, we replace $f(x)$ to $f(x_0 + y)$. We then $f$ about $x_0$, so:
+\begin{equation}
+    f(x) = f(x_0 + y) \approx f(x_0) + \frac{1}{2}y^2f''(x_0) + \frac{1}{3!}y^3f'''(x_0)
+\end{equation}
+where $f'(x_0) = 0$ as we have a minima. Now if we plug this back into the integral and change variables:
+\begin{equation}
+    I = \int_{-\infty}^\infty dy e^{-Nf(x_0) - \frac{N}{2}f''(x_0)y^2 - \frac{N}{3!}f'''(x_0)y^3 + \ldots}
+\end{equation}
+I can now further change variables by rescaling $y$; $y = \frac{1}{\sqrt{N}}w$. Then the integral becomes:
+\begin{equation}
+    I = \frac{1}{\sqrt{N}}\int_{-\infty}^\infty dw e^{-Nf(x_0) - \frac{f''(x_0)}{2}w^2 - \frac{1}{\sqrt{N}}f'''(x_0)w^3 + \ldots}
+\end{equation}
+Now if we look at $N$ very large, we can neglect the terms for which $N$ appears on the denominator (though keeping them will give us corrections). If we just keep the $w^2$ term (and the prefactor $e^{-Nf(x_0)}$ which is just a constant), we just have a Gaussian integral which we know how to do:
+\begin{equation}
+    I \approx e^{-Nf(x_0)}\frac{1}{\sqrt{N}}\sqrt{\frac{2\pi}{f'(x_0)}}\left(1 + O(\frac{1}{N})\right)
+\end{equation}
+but it is good enough for us to just repalce the integral with $e^{-Nf(x_0)}$ as this gives the dominant behaviour.
+
+Note that this is called the saddle point approximation as when you view this integral in the complex plane, it looks like a valley/saddle and we integrate over the saddle point (taking the most trecharous mountain path).
+
+\subsection{Intro to the 2-D Ising Model}
+So, we've done the spherical model. Where do we go from here? In the assignment you will look at the $O(3)$ vector model where spins vary continuously. Like the Ising model, we will find that in the infinite range case it is well-described by mean field theory. But now perhaps we should turn around and think about attacking the Ising model in higher dimensions. The 2-D Ising model can be solved exactly, and has critical exponents that are far from the mean field prediction. We won't grind through the calculation here - in the next assignment you will be tasked with solving the transverse Ising model which is in the same universality class. There we can find critical exponents also, and this is an example of a quantum phase transition. In fact transverse Ising model is certainly one of the paradigms for quantum critical behaviour (the same way that the Hydrogen atom is the paradigm for QM). Let us give a spoiler - we can diagonalize the Hamiltonian, and the eigenstates of the Hamiltonian are eigenstates of fermions. We can map the transverse Ising model onto a gas of free Majorana fermions. We are also able to do this with the 2D Ising model. There is a critical point where the mass gap closes.
+
+In the last few minutes here, let us bridge that gap and discuss the Ising model; we play around with it a bit and see what we are able to deduce.
+
+There is not much we can do with $B$ turned on, so from now on we turn off the magnetic field and consider spin interactions only. We consider spins living on the corners of a 2-D square lattice, as sketched in Fig. \ref{fig-2DIsing} (note that the corners where the spins live are called \emph{sites}, the bonds between sites are called \emph{links}, and the squares formed by four spins are called \emph{plaquettes}). The Hamiltonian is:
+\begin{equation}
+    H = -J\sum_{x, i}\sigma_x \sigma_{x + i}
+\end{equation}
+where $i$ varies over the neighbours of a given corner $(\pm \xhat, \pm \yhat)$. So the partition function is:
+\begin{equation}
+    Z = \sum_{\text{spins}}e^{\frac{J}{k_B T}\sum_{x, i}\sigma_x \sigma_{x + i}}.
+\end{equation}
+
+Let's consider the $T \to \infty$ limit. Then the Boltzmann weight goes to 1 for every state. So, things are totally random, and we sum over the up and down spin with equal weight at each site. There is zero magnetization. The free energy is infinite.
+
+Let's think about what the sum appearing in $Z$ looks like. We have a sum over links $i$, with the interaction across that link. So, we can write:
+\begin{equation}
+    Z = \sum_{\text{spins}}\prod_{\text{links}}e^{\frac{J}{k_B T}\sigma_x\sigma_{x+i}}
+\end{equation}
+Now, there's something interesting going on here; I can think of Taylor expanding this exponent. $\sigma_x\sigma_{x+i} = \pm 1$ as each of the spins have values $\pm 1$. So, $(\sigma_x \sigma_{x+i})^{n}$ for any even $n$, and for any odd $n$ it is equal to itself. Now considering that $e^x = \cosh x + \sinh x$ (and the fact that $\cosh$ contains all the even terms and $\sinh$ all the even) we can therefore write the above as:
+\begin{equation}
+    Z = \sum_{\text{spins}}\prod_{\text{links}}\left(\cosh\frac{J}{k_B T} + \sigma_x\sigma_{x+i}\sinh\frac{J}{k_B T}\right)
+\end{equation}
+the good news is that things have gotten simpler. The bad news is that they are not quite so simple that we know how to solve this yet. Let us clean it up a little bit.
+\begin{equation}
+    Z = \left(\cosh\frac{J}{k_B T}\right)^N\left[\sum_{\text{spins}}\prod_{\text{links}}(1 + \tanh\frac{J}{k_B T}\sigma_x\sigma_{x+i})\right]
+\end{equation}
+Now we can expand in the high temperature limit. For $T \to \infty$, we find that $\tanh\frac{J}{k_B T} \to 0$ and so:
+\begin{equation}
+    F = -k_B T N\ln \cosh\frac{J}{k_B T} + \ldots 
+\end{equation}
+this has a correction of $-k_B T N \ln 2$ from the sum over spins. What is the next? Any term with just a single site $\sigma_x$ vanishes when we sum over spins. It has to appear twice for it to not vanish; the smallest possible configuration is a square/plaquette over four sites where things can appear twice (links going around the square). So the first correction is from four-site squares. If we expand $Z$:
+\begin{equation}
+    Z = 2^N\left(\cosh\frac{J}{k_B T}\right)^N\left(1 - \frac{1}{2^N}\tanh^4\frac{J}{k_B T} + \ldots \right)
+\end{equation}
+where there are $N$ possible plaquettes, and each contributes $\tanh^4$. The successive corrections are given by loops, where the correction is of the form $\frac{1}{2^{\# \text{of such loops}}}\tanh^{\text{\# of sites in loop}}$.
+
+So, this is a high-temperature expansion. This is quite cool! Because you are expanding in (successively larger) loops. Next time, we will show that the low temperature expansion has more or less the same structure. We start with a completely ferromagnetized state, and we ask what kind of defect we would have, but this is just a domain wall which also has to close up (i.e. be a curve). In the exact solution of the model, these curves end up being the exact trajectory of Majorana fermions. So, closed loops are a fermion anti-fermion pairs, something like a quantum fluctuation in actual spacetime (even though here there is nothing quantum)!
