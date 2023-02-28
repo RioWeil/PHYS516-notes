@@ -29,9 +29,9 @@ where the prefactor can be explained as follows. There are $N$ places we can put
 
 \begin{figure}[htbp]
     \centering
-    (types of loops)
-    \caption{<caption>}
-    \label{<label>}
+    \includegraphics{Images/fig-loops.pdf}
+    \caption{Contributions to the high-temperature expansion in the form of closed loops on the lattice. The first contribution comes from 4-site loops (red). The next contribution comes from 6-site loops (blue). The next contribution comes from 8-site loops (green) and so on.}
+    \label{fig-loops}
 \end{figure}
 
 So, the product can be written as:
@@ -58,17 +58,18 @@ How do we correct this? We include excitations. The first correction comes from 
 
 \begin{figure}[htbp]
     \centering
-    (excitations - one spin flipped)
-    \caption{<caption>}
-    \label{<label>}
+    \includegraphics{Images/fig-onespinflip.pdf}
+
+    \caption{A single spin being flipped from $+1$ to $-1$ (denoted by the $\times$) leads to the flipping of 4 bonds (blue) around it.}
+    \label{fig-onespinflip}
 \end{figure}
 But let's think about this geometrically. If we flip one spin at a site on the physical lattice, we can equivalently view this as a loop on the dual lattice. So, we can see the equivalent structure of the high and low temperature expansions. The high temperature expansion is in loops on the physical lattice, and the low temperature expansion is in loops on the dual lattice. This observation is basically what is known as \emph{Kramers-Wannier duality}.
 
 \begin{figure}[htbp]
     \centering
-    Viewing spin flip as a loop on dual lattice
-    \caption{<caption>}
-    \label{<label>}
+    \includegraphics{Images/fig-KWduality.pdf}
+    \caption{Visualization of Kramers-Wannier duality for the 2D Ising model. The high temperature expansion can be viewed as an expansion in loops on the physical lattice (black), and the low temperature exapnsion can be viewed as an expansion of loops on the dual lattice (red).}
+    \label{fig-KWduality}
 \end{figure}
 
 So what we can do is consider Ising models on the original and dual lattices, and then match up the coefficients. If our original Ising model has the factor $e^{-\frac{2J}{k_B T}}$ in the low-$T$ expansion and the dual lattice has the factor $\tanh\frac{\tilde{J}}{k_B T}$, we can then equate:
@@ -101,8 +102,8 @@ From this expression we can search for the critical exponents.
         \\ $\nu$ & $\frac{1}{2}$ & $0$
         \\ \hline
     \end{tabular}
-    \caption{<caption>}
-    \label{<label>}
+    \caption{Critical exponents of the 2D Ising model, compared with the critical exponents of mean field theory.}
+    \label{table-2dIsingcriticalexponents}
 \end{table}
 The solutions to the lattice model here are exact. One other interesting development is a model which just looks at the long-wavelength degrees of freedom of the spins. Assuming scale variance, we can solve the theory; scale invariance implies conformal invariance, of which there will be an infinite number of symmetries in 2D, and this can be solved using algebra. The techniques agree, and so studying the long-wavelength behaviour study is promising.
 

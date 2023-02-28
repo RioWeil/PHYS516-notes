@@ -2,6 +2,7 @@
 
 % A few logistical points. Midterm exam is this week, oral + online. Please schedule via email.
 
+\subsection{Attacking the Ising Model in Arbitrary Dimension}
 We have been discussing various solvable models - the 1D Ising model, the infinite range model, the spherical model and so on. Each of these had a wonderful trick to find the solution. We found results like the critical exponents for these models. Although we didn't go through the derivation, we also discussed the Ising model, gave a plausibility argument for the solution, and gave the solution. But beyond 2D, there really is not an approach that gives us the exact solution. So, this is the end of the analytically known - but this is not a huge problem as most physical systems are not solvable anyway. So, what we will start to do now is an attack on the higher dimensional Ising models (of which we will take a more systematic approach to later).
 
 We have the Hamiltonian:
@@ -62,6 +63,7 @@ this looks quite familiar to what we did for the infinite range Ising model! The
     \avg{\sigma_x} = \sum_y \Delta(x, y)\avg{\phi(y)}.
 \end{equation}
 
+\subsection{Approximating the Integral}
 Ok, so we've rewritten the partition function. But we still have an infinite number of integrals to do, none of which we can actually do analytically. What we can do is to approximate the integral. The crudest possible approximation would be the saddle point approximation, where we replace the integral with the maximum of the integrand. Note however that for the saddle point to be accurate we want a large prefactor in the exponential of the integrand... but $\frac{1}{2}$ is of course not very large at all... so we hope for a miracle here in a sense. Let's also just drop the $\frac{2^Ne^{-\frac{JDN(1+\mu^2)}{k_B T}}}{\ln 2\pi \Delta}$ as this will never be anything interesting.
 
 \begin{equation}
@@ -92,7 +94,7 @@ For our system here, pictorially RG takes the form of course graining; i.e. take
 
 \begin{figure}[htbp]
     \centering
-    (blocks of spins)
-    \caption{<caption>}
-    \label{<label>}
+    \includegraphics{Images/fig-Isingblocks.pdf}
+    \caption{Pictorial idea of renormalization group (for the 2D Ising model). We course grain over the lattice by grouping the spins into blocks, then shrinking the blocks into the size of spins, and then repeating the process.}
+    \label{fig-Isingblocks}
 \end{figure}

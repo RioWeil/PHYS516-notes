@@ -1,0 +1,23 @@
+\documentclass[10pt]{standalone}
+\usepackage{commands}
+
+\begin{document}
+\begin{tikzpicture}
+    \foreach \j in {1,...,5} {
+            \draw[] (-1, \j) -- (5, \j);
+            \draw[red] (-1, \j-0.5) -- (5, \j-0.5);
+    };
+    \draw[red] (-1, 5.5) -- (5, 5.5);
+    \foreach \i in {0,...,4} {
+        \foreach \j in {1,...,5} {
+            \filldraw (\i, \j) circle (2pt);
+        }
+        \draw[] (\i, 0) -- (\i, 6);
+        \draw[red] (\i-0.5, 0) -- (\i-0.5, 6);
+    };
+    \draw[red] (4.5, 0) -- (4.5, 6);
+    \filldraw[draw=white, fill=white] (2, 3) circle (2.1pt);
+    \node[] at (2, 3) {$\times$};
+    \draw[thick, blue] (1.5, 3.5) -- (2.5, 3.5) -- (2.5, 2.5) -- (1.5, 2.5) -- cycle;
+\end{tikzpicture}
+\end{document}
