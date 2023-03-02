@@ -1,0 +1,88 @@
+\section{Introduction to the Renormalization Group}
+\subsection{Motivating the Renormalization Group}
+We begin discussing the renormalization group. We will sum over the short wavelength degrees of freedom, and leave the long wavelength degrees of freedom to solve for them later (and do it cleverly). This is the intuitive picture which every textbook nowadays uses; but this took many smart people 30 years to iron out, so it shouldn't be totally obvious to you as a student learning this material for the first time.
+
+Note that there will be a technical step here we must take; there isn't a super intuitive bridge that we can use here that Gordon knows of (perhaps we could use a computer to somehow thin out the degrees of freedom, but Gordon doesn't know this method so let's avoid it), so we will use the technical approach. We borrow a technique from the French field theorists, using their starting point (the Gaussian transform) but applying it to our non-field theoretic setting.
+
+\subsection{Review of the Gaussian Transform}
+We recall the partition function for the $D$-dimensional Ising model:
+\begin{equation}\label{eq-Isingpartition}
+    Z[T, B, N] = \frac{2^Ne^{-\frac{NDT}{k_B T}}}{\sqrt{\det(2\pi\Delta)}}\int_{-\infty}^\infty d\phi(x) e^{-\frac{1}{2}\sum_{xy}\phi(x)\Delta^{-1}(x, y)\phi(y) + \sum_x \ln\cosh(\phi(x) + \frac{B_x}{k_B T})}
+\end{equation}
+where we note that the integral is actually an infinite number of integrals. Also, note that $x, y$ are actually $D$-dimensional vectors. Recall that $\Delta$ here has the (symmetrized) form:
+\begin{equation}
+    \Delta(x,y) = \frac{J}{k_B T}\sum_i (\delta_{y, x + i} + \delta_{y, x-i} + 2\delta_{x, y})
+\end{equation}
+this is an very sparse and very large matrix! Which is nonzero only on the diagonal and just off the diagonal. We can understand this matrix better by taking its Fourier transform:
+\begin{equation}
+    \sum_y \Delta(x, y)e^{ip \cdot y} = \Delta(p)e^{ip\cdot x}
+\end{equation}
+where:
+\begin{equation}
+    \Delta(p) = \frac{J}{k_B T}\sum_{i=1}^D (2 + 2\cos p_i) = \frac{J}{k_B T}\sum_{i=1}^D (4 - 2(1 - \cos p_i)) = \frac{J}{k_B T}\sum_{i=1}^D (4 - 2(2\sin^2\frac{p_i}{2})) = \frac{J}{k_BT}\left(4D - \sum_i 4\sin^2\frac{p_i}{2}\right)
+\end{equation}
+Why did we write this in the last form? For small $\abs{p}$, the last term is just $p^2$, so this expression is amenable if we want to look at the small-momentum regime later.
+
+We can also write down the inverse of the $\Delta$ matrix:
+\begin{equation}
+    \Delta^{-1}(x, y) = \int \frac{d^Dp}{(2\pi)^D}e^{ip(x - y)}\frac{k_B T}{J}\left(\frac{1}{4D - \sum_i 4\sin^2\frac{p_i}{2}}\right)
+\end{equation}
+where the integration is carried out over the Bruillon zone, with each component of $p$ being integrated from $-\pi$ to $\pi$. We integrate over this elementary zone as there is a periodicity in $p$ (note that this means that really we are looking at a hypertorus due to the periodicity in each dimension). 
+
+Now, let's set $B_x = 0$ to make our lives much easier in actually taking the integral. We kept it there because taking derivatives w.r.t. $B$ give us the correlation functions of the Ising model:
+\begin{equation}
+    \avg{\sigma_x} = k_B T \dpd{}{B_x}(\ln Z)
+\end{equation}
+\begin{equation}
+    \avg{\sigma_x\sigma_y}_C = (k_B T)^2\frac{\partial^2}{\partial B_x \partial B_y}(\ln Z)
+\end{equation}
+i.e. keeping the $B_x$ allows us to recover information about the expectation values of spin variables. We also have formulas that relate the expectation value of the spin variables with $\phi$:
+\begin{equation}
+    \avg{\sigma_x} = \sum_w \Delta^{-1}(x, w) \avg{\phi(w)}
+\end{equation}
+\begin{equation}
+    \avg{\sigma_x\sigma_y}_C = \sum_{wz}\Delta^{-1}(x, y)\Delta^{-1}(y, z)\avg{\phi(w)\phi(z)} - \Delta^{-1}(x, y)
+\end{equation}
+We now do a saddle point approximation - even though there is no big number in the (negative) exponential that would justify this. We did kind of see that a big number appears ($N$), but it's sort of a fake appearance - it was an $N$ in front of an infimum for $N$ variables. So, to see if the approximation is good, we tried to calculate the corrections to the first order term, and found that the correction was still of order $N$... so the corrections were not supressed. What we did find was that the leading order behaviour was that of mean field theory. The scaling of the free energy was quadratic in the distance from the critical temperature. We then had a hand-wavey argument to show that the corrections go as $(T - T_c)^{D/2}$ so for $D > 4$ these do go to zero faster than the leading term. So, our crude approximation, giving us mean field theory, works well for $D > 4$. For $D < 4$ we actually have a disaster because the corrections dominate (they go to zero slower than the leading order). Presumably the corrections to the corrections are even larger. Even with our loose physicist standards, this expansion is hot nonsense. This is important to us because the most important Ising model is in $D = 3$... 
+
+So, this concludes what we did last time, where our naive approach to the integral fails spectacularly. The fix-up is the renormalization group, which we begin to dicuss now.
+
+\subsection{Course Graining}
+Let's discuss course graining. In RG we want to integrate over the short wavelength degrees of freedom. We kind of have this in the spin-block picture, but this is not totally correct. We can really only probe the system experimentally in the long-wavelength regime\footnote{unless you have ARPES, or STM}... (sorry I missed bits of the commentary here so this doesn't make a lot of sense)
+
+We look at the fourier transform of $\phi$:
+\begin{equation}
+    \phi(x) = \int_{-\pi}^\pi \frac{d^Dp}{(2\pi)^D}\phi(p)e^{ip\cdot x}
+\end{equation}
+where $\phi^*(p) = \phi(-p)$, and $\phi(p)$ is complex. We want to now separate this into modes of different wavelengths. Let us separate out the integration into two regions.
+\begin{equation}
+    \phi(x) = \int_{\abs{p} < \Lambda} \frac{d^Dp}{(2\pi)^D}\phi(p)e^{ip \cdot x} + \int_{\Lambda < \abs{p}} \frac{d^Dp}{(2\pi)^D}\phi(p)e^{ip \cdot x} = \phi_<(x) + \phi_>(x)
+\end{equation}
+this cutoff probably seems strange to those who have studied field theory before, as the momentum cutoffs are usually large, but here $\Lambda \ll \pi$. One can imagine that we took the hypercube (hypertorus) that is the Bruilloin zone (with $-\pi < p_i < \pi$) and separated it into a small ball around the origin and the rest of the cube. Now, we will use that:
+\begin{equation}
+    \int\prod_x d\phi(x)\ldots = \int \prod_p d\phi(p)\ldots
+\end{equation}
+this change of variables is not so simple as we really have a functional integral here - but let us be cavalier. It should now be quite clear what we are to do. We can substitute this into Eq. \eqref{eq-Isingpartition}.
+
+Let us define:
+\begin{equation}
+    e^{-S_{eff}[\phi_<]} = \frac{2^Ne^{-\frac{NDT}{k_B T}}}{\sqrt{\det(2\pi\Delta)}}\int d\phi_>(x) e^{-\frac{1}{2}\sum(\phi_> + \phi_<)\Delta^{-1}(\phi_> + \phi_<) + \sum \ln\cosh(\phi_< + \phi_>)}
+\end{equation}
+and so:
+\begin{equation}
+    Z = \int d\phi_<(x) e^{-S_{eff}[\phi_<]}
+\end{equation}
+This is the first step in the renormalization group discussion - our way of forming the blocks of spins. The next step will be to shrink down the blocks into the size of a single spin. What we're going to see is that when we do these two steps, the effective action evolves in a way such that it becomes very simple.
+
+Analogy: to understand the physics of a soccer game, we don't need to understand quantum mechanics, nor do we need to understand cosmology or general relativity. Physics is nicely separated into scales, and that is what we do here.
+
+Note that we need a phase transition for things to work - if there is no second order critical behaviour, then the degrees of freedom don't really have an effect macroscopically/on long wavelength degrees of freedom.
+
+\subsection{Rescaling}
+We will see some magic happen here. We replace $\phi_L(x) \to C\Lambda^{D-2}\phi(\Lambda x)$. By doing this, we have ``backed off'' so much that $\phi$ looks like a function of a continuous variable. The effective action should reflect this in the sense that the sum over $x$s should become integrations. Before, the Fourier transform of $\phi_L(x)$ was in a ball in momentum space of radius $\Lambda$, and now the Fourier transform of $C\Lambda^{D-2}\phi(\Lambda x)$ looks like a ball of radius 1.
+
+Specifically:
+\begin{equation}
+    S_{eff} = \int d^D x\left(\frac{1}{2}\nabla \phi_< (x) \cdot \nabla \phi_< (x) + \frac{\tau}{2}\Lambda^2\phi^2_<(x) + \ldots + \Lambda^{\#}\phi^n +\ldots \right)
+\end{equation}
+which looks like classical/Landau-Ginzberg theory! We want to tune $\tau$, but then the $\Lambda^2$ detunes us, so we have to retune better. The $\phi^n$s get scaled away with powers of $\Lambda$, which is small! So this is our new theory, an effective theory where things simplify dramatically. For $D > 4$ everything $\phi^4$ and higher goes away. For $D = 4$ it does not scale. For $D < 4$ it actually grows. The idea is that we can keep rescaling until these higher order terms go away. The beauty is we can eventually do a saddle point approximation if we rescale the $\phi$s and get a small number out front ($\frac{1}{\Lambda}$ to some power). So everything falls into place to something where it looks like we can calcualte without doing the horrid integral in Eq. \eqref{eq-Isingpartition} (at least not exactly).
