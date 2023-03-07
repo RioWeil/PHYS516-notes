@@ -1,0 +1,115 @@
+\section{Renormalization Group, Continued}
+\subsection{Review of progress so far}
+We found ourselves in a strange position where we have spent a couple lectures figuring out how to do an integral. It is an important integral, so let us summarize where we are before proceeding forwards. The integral (actually an infinite number; one per lattice site) we are wanting to do is:
+\begin{equation}
+    Z[T, B = 0, N] = \frac{2^N e^{-\frac{NDJ}{k_B T}}}{\sqrt{\det(2\pi\Delta)}}\int_{-\infty}^\infty d\phi(x) e^{-\frac{1}{2}\sum_{xy}\phi(x)\Delta^{-1}(x,y)\phi(y) + \sum_x \ln\cosh\phi(x)}.
+\end{equation}
+We've made a stab at it; we attempted the saddle point approximation, despite there being nothing in the above formula that suggests the saddle point approximation (where we replace the integral with the maximum value of the integrand) would be good (there is no large number in the negative exponential). But we are physicists, and sometimes we do things anyway even if we don't know why they'll work. Recall that to leading order, the saddle point approximation gave us the mean field theory prediction. So, the free energy $F$ goes as:
+\begin{equation}
+    F = \begin{cases}
+        c_1(T - T_c)^2 & T > T_c
+        \\ c_2(T_c - T)^2 & T < T_c
+    \end{cases}
+\end{equation}
+near the critical point. And then we computed corrections (there is a well-defined way to do this in the saddle point approximation; here it might be proposterous to call them ``corrections'' as they are not necessarily smaller due to the missing large prefactor in the negative exponential). We found that the first order correction was:
+\begin{equation}
+    \sim \abs{T - T_c}^{D/2}
+\end{equation}
+For $D > 4$, this term is a higher power of $(T - T_c)$ and so this term does not contribute to the singularity. So in this regime, our crude approximation is justified. But for $D < 4$, the corrections are larger than the leading order, and our expansion is nonsense. We need something better. 
+
+Note that it is the small wavenumber/large wavelength modes that cause us the problems, here. Last lecture we took the approach of integrating the large wavenumber/short wavelength modes, which is a safe integral and also tell us about the small wavenumber modes. So, let's review that. We split up $\phi(x)$ into two parts, and consider their Fourier transform:
+\begin{equation}
+    \begin{split}
+        \phi(x) &= \phi_<(x) + \phi_>(x)
+        \\ &= \int_{\abs{p}< \Lambda} \frac{d^Dp}{(2\pi)^D}e^{ip \cdot x}\phi(p) + \int_{\abs{p} > \Lambda} \frac{d^Dp}{(2\pi)^D} e^{ip \cdot x}\phi(p)
+    \end{split}
+\end{equation}
+where the integrals are taken over the Brioullin zone $\Omega_B$. In a sense, the Fourier transform is just a change of variables. Think of $\phi(x)$ as an (infinite) vector, and so is $\phi(p)$; then the above is just a matrix multiplication. And it is in this sense that we can change the integration variable, because the determinant of the Jacobian of the above transformation has determinant one. This is not obvious, and has subtleties that we are not treating with full rigour (though it could be done in principle). The bottom line is that:
+\begin{equation}
+    \prod_x \int_{-\infty}^\infty d\phi(x) = \int \prod_p d\phi(p) = \int \prod_{p < \abs{\Lambda}}d\phi(p)\int \prod_{\abs{p} > \Lambda} d\phi(p)
+\end{equation}
+where (again), the integral is taken over the Brioullin zone $\Omega_B$. We would like to do a Gaussian integral now; something of the form:
+\begin{equation}
+    \int \prod_{p > \abs{\Lambda}} d\phi(p) e^{-\frac{1}{2}\phi \Delta^{-1}\phi} = e^{-\frac{1}{2}``\Tr''\ln\Delta^{-1}} = e^{-\frac{N}{2}\int_{\abs{p}> \Lambda}\frac{d^Dp}{(2\pi)^D} \ln \Delta^{-1}(p)}
+\end{equation}
+note that the trace comes up here as it would be the full trace if we took products over all $p$ and not just over the large momentum modes. This is about where we got to last time.
+
+\subsection{Expansion in Local Operators}
+\begin{comment}
+Since we are really only interested in the behaviour near the critical points, the prefactor:
+\begin{equation}
+    \frac{2^Ne^{-\frac{NDJ}{k_B T}}}{\sqrt{\det(2\pi\Delta)}}
+\end{equation}
+is smooth at $T_c$, so we can neglect it.
+\end{comment}
+We consider an expression of the form:
+\begin{equation}
+    e^{-S_{\text{eff}}[\phi_<]} = \int_{-\infty}^\infty d\phi_>(x) e^{-\frac{1}{2}\sum_{xy}\phi(x)\Delta^{-1}(x, y)\phi(y) + \sum_x \ln\cosh\phi(x)}
+\end{equation}
+where $S_{\text{eff}}$ denotes an effective action. So, we've split the task of finding the partition function into two:
+\begin{equation}
+    Z[T, B=0, N] = \int d\phi_<(x) e^{-S_{\text{eff}}[\phi_<]}
+\end{equation}
+where $d\phi_<(x) = d\phi(p)_{\abs{p} <\Lambda}$. In the literature, they call this ``integrating out'' the short-wavelength degrees of freedom. It's big success (which we will reach at some point) inspires people to use this everywhere. 
+
+The right thing to do here is to parameterize the general form of the result. What we will say is the following:
+\begin{equation}
+    S_{\text{eff}}[\phi] = \sum_{\Delta}O_\Delta(x)
+\end{equation}
+(Note; the $\phi$ above is shorthand, which is ok as we integrate out the short-wavelength degrees of freedom). In the above, $O(x)$ is a polynomial in $\phi(x)$ and ``derivatives'' of $\phi(x)$, evaluated at a single point - which of course is just $x$. Let us define the derivatives as:
+\begin{equation}
+    \nabla_i \phi(x) \equiv \dpd{}{x^i}\phi(x) = \int_{\abs{p} < \Lambda} \frac{d^Dp}{(2\pi)^D} e^{ip \cdot x}\phi(p)ip_i
+\end{equation}
+Note this is not a lattice derivative (which would be some difference operator); the derivatives are defined in terms of the Fourier transform. Some examples of local operators are:
+\begin{equation}
+    \frac{\lambda_n}{n!}\phi^n(x), \quad \phi(x)\nabla_i\phi(x), \frac{1}{2}\nabla \phi(x) \cdot \nabla \phi(x) \ldots 
+\end{equation}
+Note that the $\mathbb{Z}_2$ symmetry of the Ising model comes back here; it tells us that we can neglect all terms with an odd number of $\phi$s, and only consider terms with an even number of $\phi$s.
+
+As an example, consider:
+\begin{equation}
+    \frac{1}{2}\sum_{xy}\phi(x)\Delta^{-1}(x, y)\phi(y)
+\end{equation}
+(where again we have dropped the $<$ but it is implied). This has nice expansion in terms of local operators; but it is worth noting that the above is actually a nonlocal operator as we have $\phi$ evaluated at two different points.
+\begin{equation}
+    \frac{1}{2}\sum_{xy}\phi(x)\Delta^{-1}(x, y)\phi(y) = \frac{1}{2}\int_{\abs{p} < \Lambda} \frac{d^Dp}{(2\pi)^D}\phi(-p)\phi(p)\Delta^{-1}(p)
+\end{equation}
+Now, if we Taylor expand:
+\begin{equation}
+    \frac{1}{2}\sum_{xy}\phi(x)\Delta^{-1}(x, y)\phi(y) = \frac{1}{2}\int \frac{d^Dp}{(2\pi)^D}\phi(-p)\phi(p)\left(\Delta^{-1}(0) + \v{p}^2\Delta{-1''}(0) + (\v{p}^2)^{2}\Delta^{-1(4)} + \sum_i p_i^4 \Delta + \ldots\right)
+\end{equation}
+note that originally the $\v{p}^2$ term is actually a $p_ip_j$ but the lattice symmetry reduces this to the $\v{p}^2$ above. The lattice symmetry results in similar simplifications for the successive terms. So then:
+\begin{equation}
+    \frac{1}{2}\sum_{xy}\phi(x)\Delta^{-1}(x, y)\phi(y) = \sum_x \frac{\phi^2(x)}{2}\Delta(0) + \sum_x \frac{(\nabla \phi(x))^2}{2}\Delta''(0) + \ldots
+\end{equation}
+Of course, these local operators have coefficients which come from the contributions from other parts of the integral. We don't really know what these are, so we don't get lost in the details (they certainly exist as the integral is finite).
+
+So, this finishes the course graining step, where in terms of the local operators:
+\begin{equation}
+    S_{\text{eff}} = \sum_x \frac{\tau}{2}\phi^2(x) + \sum_x \frac{c}{2}(\nabla \phi)^2 + \sum_X \frac{\lambda}{4!}\phi^4(x) + \ldots 
+\end{equation}
+
+\subsection{Rescaling}
+Now, let us rescale $\phi \to \frac{1}{\sqrt{c}}\phi$:
+\begin{equation}
+    S_{\text{eff}} = \sum_x \frac{\tau'}{2}\phi^2(x) + \sum_x \frac{1}{2}(\nabla \phi)^2 + \sum_X \frac{\lambda'}{4!}\phi^4(x) + \ldots 
+\end{equation}
+Now we come to the step where we take our block spins and reset the scale so they look like the original spins. Let us scale $\phi(x) \to \Lambda^{\frac{D-2}{2}}\phi(\Lambda x)$. Now, our effective action has the form:
+\begin{equation}
+    S_{\text{eff}} = \sum_x \Lambda^D \frac{1}{2}(\nabla\phi(x))^2 + \int d^D x \frac{\tau}{2\Lambda^2}\phi^2(x) + \int d^4Dx \Lambda^{D-4}\frac{\lambda}{4!}\phi^4(x) + \ldots 
+\end{equation}
+where since $\Lambda$ can be made arbitrarily small, the sums have been converted into integrals (this is the definition of the Riemann integral). The first term is always stable, the second term seems to blow up but we can control by fine-tuning of the $\tau$ parameter. The third term is very interesting. This seems to scale to zero as $\Lambda$ becomes very small, so long as $D > 4$. And this is true for all terms $\phi^n$ with $n \geq 4$. So, really the only term of interest here is the quadratic term. This observation is what gives us mean field theory.
+
+So, consider a local operator with $p$ $\nabla \phi$s and $q$ $\phi$s. We then have under rescaling that:
+\begin{equation}
+    O_\Delta(x) \to \Lambda^{\frac{D-2}{2}q + p}O_\Delta(\Lambda x)
+\end{equation}
+There is a large difference in the behaviour depending on the exponent on $\Lambda$:
+\begin{equation}
+    \frac{D-2}{2}q + p = \begin{cases}
+        > D & \text{Irrelevant (scales to zero)}
+        \\ = D & \text{Marginal}
+        \\ < D & \text{Relevant}
+    \end{cases}
+\end{equation}
+Since the exponent scales with $q, p$, most operators are actually irrelevant. At the expense of going from discrete degrees of freedom to functions, we have greatly simplified the possibilities for the theory to be more or less covered by a few parameters.
