@@ -1,0 +1,103 @@
+\section{Renormalization Group, Part V (Critical Exponents)}
+\subsection{Correlation Functions}
+Suppose we want to calculate the correlation function of two spins. Our renormalization group machinery allows us to do this systematically. We calculate:
+\begin{equation}
+    \avg{\phi(x)\phi(y)} = \frac{\int d\phi(x) e^{-S_{\text{eff}}[\phi]}\phi(x)\phi(y)}{\int d\phi(x)e^{-S_{\text{eff}}[\phi]}}
+\end{equation}
+this is almost correct; on the LHS $\phi$ is the original field variable, and on the RHS the $\phi$ appearing in the integrations is actually the rescaled variable. Both the coordinates have changed (this is not a big deal; we can do the same on the other side. Just ``zooming out'') but there is also a factor by which we have rescaled $\phi$, which we call $z(\Lambda)$ (as it can depend on the cutoff, in general):
+\begin{equation}
+    \avg{\phi(x)\phi(y)} = \frac{\int d\phi(x) e^{-S_{\text{eff}}[\phi]}z(\Lambda)\phi(x)\phi(y)}{\int d\phi(x)e^{-S_{\text{eff}[\phi]}}} = z(\Lambda)G(x, y)
+\end{equation}
+The main trick of the renormalization group - on the LHS we have the original problem. The parameter $\Lambda$ is just some invention we did to solve the problem, so the LHS can't possibly depend on it. But on the RHS a bunch of things depend on it.... but this can't possibly be. If the LHS does not depend on $\Lambda$, then the RHS must also be $\Lambda$ independent. This implies that:
+\begin{equation}
+    \left(\Lambda \dpd{}{\Lambda} + \sum_i \beta_i(\lambda_i)\dpd{}{\lambda_i}\right)\left(z(\Lambda)G(x, y)\right) = 0.
+\end{equation}
+The way we computed these things, this is basically a flow equation. This is some nontrivial information that we can use somewhere. Now usually, we can pull the $z(\lambda)$ out of this equation - if we define $\gamma = \frac{1}{z(\Lambda)}\Lambda\dpd{}{\Lambda}z(\Lambda)$, we then have:
+\begin{equation}\label{eq-Gxyconstraint}
+    \left(\Lambda \dpd{}{\Lambda} + \gamma\dpd{}{\gamma} + \sum_i \beta_i(\lambda_i)\dpd{}{\lambda_i}\right)G(x, y) = 0
+\end{equation}
+Now, we determine $G(x, y)$ perturbatively. To leading order, we have:
+\begin{equation}
+    G(x, y) = \int_{\abs{p} < 1} \frac{d^{4}p}{(2\pi)^{4}}\frac{e^{ip(x-y)}}{p^2 + \tau} \sim \frac{\int d\phi e^{-\frac{1}{2}d^4x\left((\nabla \phi)^2 + \tau\phi^2\right)}\phi(x)\phi(y)}{\int d\phi e^{-\frac{1}{2}\int d^4x\left((\nabla \phi)^2 + \tau\phi^2\right)}}
+\end{equation}
+And then, if your QFT prof told you to correct this, you would add the $\phi^4$ term to the exponential (making the integral not analytically solvable) and then taylor expand the exponential. This is what we would do in a field theory course, but we do not do this here - not becuase it would be redundant, but because it would give the wrong answer anyway (naive perturbation theory does not work)! So, what we will do is take $G(x, y)$ and enforce constraints such that it obeys Eq. \eqref{eq-Gxyconstraint}. In the limit of where $\abs{x - y} \to \infty$ (i.e. the sites are very far), we have the scaling:
+\begin{equation}
+    G(x, y) \sim e^{-\sqrt{\tau}\abs{x-y}}
+\end{equation}
+let us demonstrate why. We can rewrite:
+\begin{equation}
+    G(x, y) = \int \frac{d^4p}{(2\pi)^4}e^{ip(x-y) - \ln(p^2 + \tau)} 
+\end{equation}
+if $\abs{x - y} \to \infty$, a saddle point approximation is justified here. We have the equation:
+\begin{equation}
+    i(\v{x} - \v{y}) - \frac{2\v{p^2}}{p^2 + \tau} = 0
+\end{equation}
+which then implies that $\v{p}$ is parallel with $(\v{x} - \v{y})$, and so:
+\begin{equation}
+    i\abs{\v{x} - \v{y}} = \frac{2p}{p^2 + \tau}
+\end{equation}
+which can then be solved for $\v{p}$:
+\begin{equation}
+    -\abs{\v{x} - \v{y}}^2(p^2 + \tau)^2 = 4p^2
+\end{equation}
+(and we leave the rest as the exercise). What we learn from this is that the correlation length is $\xi \sim \tau^{-\frac{1}{2}}$ which is one of the critical exponents! We recover mean field theory without doing too much.
+
+\subsection{Solving the Flow Equations}
+We can do slightly better by solving the flow equation. We can replace $\tau$ with the flowing $\tau$, and let it flow to the fixed point. For this, we consider/recall the (linearized in $\tau$) equations:
+\begin{equation}\label{eq-tau}
+    \Lambda\dpd{}{\Lambda}\tau = -2\tau - \frac{\lambda}{16\pi^2}
+\end{equation}
+\begin{equation}
+    \Lambda\dpd{}{\Lambda}\lambda = -\e\lambda + \frac{3\lambda^2}{16\pi^2}
+\end{equation}
+Making the ansatz $\Lambda \sim e^{-t}$, the second equation then becomes:
+\begin{equation}
+    \dpd{\lambda(t)}{t} = \e\lambda(t) - \frac{3\lambda^2(t)}{16\pi^2}
+\end{equation}
+which we can then solve by separation of variables:
+\begin{equation}
+    \int \frac{d\lambda}{\e\lambda - \frac{3\lambda^2}{16\pi^2}}= \int dt
+\end{equation}
+so then (using partial fractions - we might have dropped some factors here)
+\begin{equation}
+    \int d\lambda\left(\frac{1}{\lambda} + \frac{1}{\frac{16\pi^2\e}{3} - \lambda}\right) = t
+\end{equation}
+so then:
+\begin{equation}
+    \lambda = \frac{16\pi^2\e}{3}\frac{1}{1 + e^{-t}}
+\end{equation}
+So we consider the flow of $\lambda$ to the Wilson-Fisher fixed point:
+\begin{equation}
+    \lambda \to \lambda^* = \frac{16\pi^2\e}{3}
+\end{equation}
+Now, let us plug $\lambda(t)$ into the $\tau$ equation Eq. \eqref{eq-tau}. This is a simple linear (inhomogenous) differential equation, which we now how to solve. Integrating, we then have:
+\begin{equation}
+    \tau = \left(\frac{\tau}{\Lambda}\right)^{2 + \frac{\lambda^*}{16\pi^2}}
+\end{equation}
+we now no longer have a $\sim \tau^{-\frac{1}{2}}$ but have an offset in the exponent:
+\begin{equation}
+    \xi = \left(\frac{\tau}{\Lambda}\right)^{-\frac{1}{2}\left(1 + \frac{\e}{6}\right)} \sim \tau^{-\nu}
+\end{equation}
+where:
+\begin{equation}
+    \nu = \frac{1}{2} + \frac{\e}{12}
+\end{equation}
+So, this rather long song and dance is how we can get critical exponents!
+
+Another easy critical exponent to obtain (which also comes from the two-point function). If we sit on the critical point (where the correlation length has diverged) the two point function should go like a power law. We can learn a lot here from dimensional analysis. At the critical point:
+\begin{equation}
+    G(x, y) = \int \frac{d^Dp}{(2\pi)^D} \frac{e^{ip(x-y)}}{p^2}
+\end{equation}
+where $p$ is the wavenumber with dimensions of inverse distance. So by dimensional analysis:
+\begin{equation}
+    G(x, y) = \frac{1}{\abs{x-y}^{D-2}}
+\end{equation}
+from which we obtain that $\eta = 0$ (as we recall that $G(x, y) = \abs{x-y}^{-D + 2 + \eta}$).
+
+Now we consider the factor out front - what power of $\Lambda$ is it? Actually, to be dimensionally correct, we need $\left(\frac{\Lambda}{p}\right)$ to some power times $\frac{1}{p^2}$. And this power we get from looking where $\gamma$ flows to. At the fixed point, it goes to some constant which depends on $\lambda^*$ and $\e$ and so on. When we do this and look at the critical point, we find:
+\begin{equation}
+    \eta = \frac{\e^2}{6} + \ldots 
+\end{equation}
+for the other critical exponents - we apply the same logic to the free energy. The free energy should be $\Lambda$ independent as well, so the $\Lambda$ dependence should be cancelled by some the flow of some constants. We would again have to invoke some dimensional analysis and so on.
+
+Next time - we will not go into further technical details of the argument; we have so far gone down the long and winding calculation; the Newton's laws of the 1970s. Where we want to go from here is Newton's law of 2010, just to teach you something that has been invented in this century. Unfortunately, it is a bit more abstract than what we have done, but we'll try to do it in an understandable way. We will think of our effective field theory as driven to the fixed point, where it no longer changes under the renormalization group transformations. In this regime we will study the emergent symmetries; some are obvious, e.g. the emergent continuous translation symmetry, and rotation symmetry. Beyond that, there is also an emergent scale symmetry; the objects transform in a certain way under scaling. To add to this, there is a less obvious symmetry - conformal symmetry. Can we then get anything out of this? It turns out the answer is yes - we can in fact get more out of it than rotational and translational symmetry. It will end up fixing the form of two-point functions, down to a few parameters.
