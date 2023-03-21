@@ -1,0 +1,161 @@
+\section{Consequences of Symmetry}
+We're in the last chapter of the course; its very abstract, but we'll try to make it palatable. Theorists will love it as it is one of the largest topics in theoretical physics. We won't have an assignment on this material, so your technical understanding will not have to be as sophisticated as the previous topics. This is a subject that was invented in the 1980s, and then developed in this century - this is a graduate level course, so we should at least talk about something developed in the last 20 years.
+
+What we will do here - we will observe that (so far) when we recast the Ising model as a renormalization group problem, at the end of the analysis we had a model with quite a bit of emergent symmetry. Now we will ask the question - can this symmetry do anything for us? We will see the answer is yes, e.g. in calculating correlation functions.
+
+We will find that quantum field theory terminology creeps into this, though everything is quite classical here. Though the kind of statistical averaging we do here is quite similar to how expectation values are taken in QFT/QM (the functional integral formulation). Recall that in the renormalization group analysis, we had a rescaling/zooming out process, which was a ``course graining'' of the system (which is what we (generally - there are exceptions e.g. STM) do when we analyze material). At this scale, the small $k$ degrees of freedom look continuous.
+
+Through the RG analysis, we found emergent (continuous - not just translations by lattice sites) translation symmetry - that is to say:
+\begin{equation}
+    \phi(x) \sim \phi(x + a)
+\end{equation}
+where $x, a$ are $D$-dimensional vectors (so actually - we have one translation symmetry per component of $a$, i.e. we have $D$ translation symmetries).
+
+We also saw that the effective action we got after a lot of rescaling looks rotationally invariant. There are also two more symmetries that emerge; namely, scale invariance, and conformal symmetry\footnote{If your undergrad E\&M course was advanced, you might have used conformal transformations to solve Maxwell's equations.}
+
+\subsection{Definition of Translation/Rotation Symmetries}
+Let us begin with translation invariance. If we consider the $N$-point correlation function:
+\begin{equation}
+    \avg{\phi(x_1)\phi(x_2) \ldots \phi(x_l)}
+\end{equation}
+then translation symmetry means that the above is equal to the correlation functions with all variables translated by the same number (vector):
+\begin{equation}
+    \avg{\phi(x_1)\phi(x_2) \ldots \phi(x_l)} = \avg{\phi(x_1 + a)\phi(x_2 + a) \ldots \phi(x_l + a)}.
+\end{equation}
+The same goes for the other symmetries, though it just looks a little more complicated. Rotation is a linear transformation described by a rotation matrix $R$:
+\begin{equation}
+    x^a \to \sum_{b=1}^D R^a_b x^b 
+\end{equation}
+with the property that the length of the vector is preserved:
+\begin{equation}
+    \sum_{a=1}^D x^ax_a = x^2 \to x^2
+\end{equation}
+Which means that the $R$ matrix is orthogonal:
+\begin{equation}
+    RR^T = \II = R^T R
+\end{equation}
+Rotation invariance is then defined as:
+\begin{equation}
+    \avg{\phi(x_1)\phi(x_2)\ldots \phi(x_l)} = \avg{\phi(Rx_1)\phi(Rx_2)\ldots \phi(Rx_l)}
+\end{equation}
+
+Note that both translation and rotation symmetries as we discuss them here are emergent. The Ising model as we wrote it down originally does not have these - but these emerged through the Renormalization group transformations.
+
+\subsection{Implications of Translation/Rotation Symmetries}
+What does this do for us? It reduces the number of parameters which a correlation function depends on (because of how the correlation functions are equal under transformations). Is there a quick way to figure out how these reduce? Let's go back to translation invariance, and particularly choose translation by $-x_l$:
+\begin{equation}
+    \avg{\phi(x_1)\phi(x_2) \ldots \phi(x_l)} = \avg{\phi(x_1 - x_l)\phi(x_2 - x_l) \ldots \phi(x_l - x_l)} = \avg{\phi(x_1 - x_l)\phi(x_2 - x_l) \ldots \phi(0)}
+\end{equation}
+So we can see that the dependence on parameters has been reduced by $D$ (or $3$ numbers)! If we consider the one-point function:
+\begin{equation}
+    \avg{\phi(x_1)} = \avg{\phi(x_1 - x_1)} = \avg{\phi(0)} = \text{const}
+\end{equation}
+so the one-point function is constant. For the two point function we have:
+\begin{equation}
+    \avg{\phi(x_1)\phi(x_2)} = g(x_1 - x_2)
+\end{equation}
+so it is a function of the difference of the two sites only (so $D$ parameters). If we add rotation symmetry to the mix, this further reduces:
+\begin{equation}
+    \avg{\phi(x_1)\phi(x_2)} = g(\avg{x_1 - x_2})
+\end{equation}
+where we can rotate until $x_1, x_2$ align on the real axis, and so it is only a function of the magnitude of the difference of the two sites; it only depends on one number.
+
+For a three-point function, there will be 3 numbers to specify it ($x_1$ has 2, $x_2$ has 1, $x_3$ has zero - or view it as a function of three magnitudes):
+\begin{equation}
+    \avg{\phi(x_1)\phi(x_2)\phi(x_3)} = f(\abs{x_1 - x_2}, \abs{x_1 - x_3}, \abs{x_2 - x_3})
+\end{equation}
+Unfortunately, this does not help us much for higher point functions; and this will be an ongoing story. 4 and higher point functions are still out of control with how many parameters they could depend on.
+
+\subsection{Definition/Implications of Scale Invariance}
+The scale transformation we have already seen as part of the RG procedure:
+\begin{equation}
+    \phi(x) \to \Lambda^{\frac{D-2}{2}}\phi(\Lambda x)
+\end{equation}
+Now we suppose that this is symmetry. But there is an intermediate step; the exponent on $\Lambda$ does not stay as $\frac{D-2}{2}$; it changes to something else. The exponent we call the dimension of the operator, but really it is more like the ``engineered (or classical) dimension of $\phi$''. If we now consider how $\phi$ scales dimensionally at the fixed point, we have:
+\begin{equation}
+    \phi(x) \to \Lambda^{\Delta}\phi(\Lambda x)
+\end{equation}
+where $\Delta$ is the ``dimension of $\phi$'' The difference:
+\begin{equation}
+    \Delta - \frac{D-2}{2}
+\end{equation}
+is sometimes called the ``anomalous dimension'' of $\phi$. This is the dimension that $\phi$ takes on through interactions. Why anomolous? Field theorists thought this was very mysterious in the early days of QFT. Of course with a better understanding, this is something that almost has to be there for things to make sense.
+
+Scale Invariance is defined as:
+\begin{equation}
+    \avg{\phi(x_1)\phi(x_2)\ldots\phi(x_l)} = \avg{\Lambda^\Delta\phi(\Lambda x_1)\ldots \Lambda^\Delta\phi(\Lambda x_l)} = \Lambda^{\Delta l}\avg{\phi(\Lambda x_1)\ldots \phi(\Lambda x_l)}
+\end{equation}
+So this has the implication of fixing the functional form of the two point function:
+\begin{equation}
+    \avg{\phi(x_1)\phi(x_2)} = \frac{C}{\abs{x_1 - x_2}^{2\Delta}}
+\end{equation}
+graphically, scale invariance allows us to push the two coordinates on the real line ``to infinity'' so we have no coordinates left. For three point function, we can use scale invariance to reduce one of the three parameters to two.
+
+So this is scale invariance, and if we stopped here things are interesting, but we find even more interesting things by considering conformal transformations/invariance.
+
+\subsection{Definition/Implications of Conformal Symmetry}
+It is much harder to graphically picture conformal symmetry - it is related to the symmetry of hyperboloids in higher dimensions.
+
+There is an operational way of constructing conformal transformations; step 1 is an inversion:
+\begin{equation}
+    \v{x} \to \frac{\v{x}}{\v{x}^2}
+\end{equation}
+which swaps $\v{x} = \v{0}$ and $\v{x} = \infty$. This is not a proper conformal transformation as it acts on the point of infinity in a nontrivial way. Step two is a translation:
+\begin{equation}
+    \frac{\v{x}}{\v{x}^2} \to \frac{\v{x}}{\v{x}^2} + \v{b}
+\end{equation}
+and finally we end with an inversion:
+\begin{equation}
+    \frac{\v{x}}{\v{x}^2} + \v{b} \to \frac{\frac{\v{x}}{\v{x}^2} + \v{b}}{\left(\frac{\v{x}}{\v{x}^2} + \v{b}\right)^2} = \frac{\v{x} + \v{b}\v{x}^2}{1 + 2\v{b}\cdot\v{x} + \v{b}^2\v{x}^2}
+\end{equation}
+So, how does $\phi(x)$ transform under this? To figure that out, we go back to how we transformed under a scaling transformation:
+\begin{equation}
+    \phi(x) \to \abs{\dpd{x'}{x}}^{\frac{\Delta}{D}}\phi(x')
+\end{equation}
+In principle we could calculate the Jacobian for the whole thing, but this would be the opposite of fun; let's start by considering the Jacobian for the inversion $\v{x}' = \frac{\v{x}}{\v{x}^2}$:
+\begin{equation}
+    \dpd{x^{'a}}{x^b} = \frac{\delta^a_b}{\v{x}^2} - \frac{2x^ax_b}{(\v{x}^2)^2}
+\end{equation}
+We then consider the $D-1$ vectors orthogonal to $\v{x}$ (sorry I got distracted and lost track here)... but the punchline is:
+\begin{equation}
+    \phi(\v{x}) \to \left(\frac{1}{\v{x}^2}\right)^{\Delta}\phi(\frac{\v{x}}{\v{x}^2})
+\end{equation}
+So then the conformal symmetry is cast as:
+\begin{equation}
+    \avg{\phi(\v{x}_1)\phi(\v{x}_2)\ldots \phi(\v{x}_l)} = \avg{\left(\frac{1}{x_1^2}\right)^\Delta \phi(\frac{\v{x}_1}{x_1^2}) \ldots \left(\frac{1}{x_l^2}\right)^\Delta \phi(\frac{\v{x}_l}{x_l^2})}
+\end{equation}
+one thing we do need to do is check that the above equation is consistent (not over-constrained, etc.). For the case of the two point function:
+\begin{equation}
+    f(x_1, x_2) = \avg{\phi(x_1)\phi(x_2)} = \frac{1}{(x_1)^\Delta}\frac{1}{(x_2)^\Delta}f(\frac{x_1}{x_1^2}, \frac{x_2}{x_2^2})
+\end{equation}
+So then if we go to our previous expression for $f(x_1, x_2)$ as constrained by the translation/rotation/scale symmetry:
+\begin{equation}
+    \frac{1}{\abs{x_1 - x_2}^{2\Delta}} = \frac{1}{(x_1^2)^\Delta}\frac{1}{(x_2^2)^\Delta}\frac{1}{\abs{\frac{\v{x}_1}{x_1^2} - \frac{\v{x}_2}{x_2^2}}^{2\Delta}}
+\end{equation}
+Then using that:
+\begin{equation}
+    \frac{1}{x_1^2} - \frac{2\v{x}_1 \cdot \v{x}_2}{x_1^2x_2^2} + \frac{1}{x_2^2} = \frac{(x_1 - x_2)^2}{x_1^2x_2^2}
+\end{equation}
+we can see that the transformation is consistent. 
+
+For three-point functions; the conformal symmetry actually removes all coordinate freedom. Their functional form is completely fixed!
+
+Let's consider local operators; we talked about operators that had a good engineering dimension, i.e. how these scales in a certain way that allowed us to neglect a lot of them. But since $\phi$ scales via a certain dimension at the fixed point, so will the local operators. All kinds of interesting things can happen - for example degeneracy splitting. In any case, we can imagine organizing the set of all operators into operators that satisfy:
+\begin{equation}
+    O_k(x) \to \Lambda^{\Delta_k}O_k(\Lambda x)
+\end{equation}
+which we call ``primary operators''. Scale symmetry will fix the two-point function of any operators:
+\begin{equation}
+    \avg{O_{k_1}(x_1)O_{k_2}(x_2)} \sim \frac{X}{\abs{x_1 - x_2}^{\Delta_1 + \Delta_2}}.
+\end{equation}
+But now, with two different $\Delta$s, we actually have something that conformal symmetry also gives us. If the $\Delta$s are different, conformal invariance forces the the coefficient to be zero, i.e. it enforces a kind of diagonal form of the operator:
+\begin{equation}
+    \avg{O_{k_1}(x_1)O_{k_2}(x_2)} \sim \frac{\delta_{\Delta_{k_1}\Delta_{k_2}}}{\abs{x_1 - x_2}^{\Delta_1 + \Delta_2}}
+\end{equation}
+conformal invariance further simplifies two-point functions of (general) operators! For three point functions:
+\begin{equation}
+    \avg{O_{k_1}(x_1)O_{k_2}(x_2)O_{k_3}(x_3)} = \frac{C_{k_1k_2k_3}}{\abs{x_1 - x_2}^{\Delta_1 + \Delta_2 - \Delta_3}\abs{x_2-x_3}^{\Delta_2 + \Delta_3 - \Delta_1}\abs{x_3 - x_1}^{\Delta_1 + \Delta_3 - \Delta_2}}
+\end{equation}
+so the ``spectral data'' are the $\Delta_k, C_{k_1k_2k_3}$. This is the consequence of symmetry - quite a lot.
+
+Now, note that 2D is very very special. There, the conformal symmetry extends itself, and there are an infinite number of symmetries. And you can really say a lot. In greater than 2D, this is more or less the full story - conformal symmetries restrict correlation functions, which can be quite powerful indeed. We will try to sketch an idea of how to make use of this in the next few lectures.
