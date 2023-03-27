@@ -1,0 +1,213 @@
+\section{}
+\subsection{Review}
+From last class, we have learned that symmetries have consequences for the form of correlation functions. Let us do a lightning review of what we discussed. At $T = T_c$, we have:
+\begin{equation}
+    \avg{\phi(x)\phi(y)} = \frac{1}{\abs{x-y}^{D-2+\eta}}
+\end{equation}
+Where we interpret $\eta$ as a shift in the scaling dimension of $\phi$. This prompted us to define what we mean as a scale transformation - the same one we saw in the renormalization group, except here we have a different exponent:
+\begin{equation}
+    \phi(x) = \Lambda^\Delta\phi(\Lambda x)
+\end{equation}
+where:
+\begin{equation}
+    \Lambda = \frac{1}{2}(D - 2 + \eta)
+\end{equation}
+We then examined the consequences of scale invaraince. If I have a local operator, they transform under a scaling transformation as:
+\begin{equation}
+    O_I(x) \to \Lambda^{\Delta_I}O_I(\Delta x)
+\end{equation}
+where $\Delta_I$ is the dimension of $O_I$.
+
+When we discussed renormalization group, the dimensions that arose there were the ``engineering'' dimensions. Now, with corrections the dimension drifts a little bit from the ``engineering'' dimension, so we have a new definition. These dimensions become part of the data our conformal field theory. Looking at a two-point function, we have:
+\begin{equation}
+    \avg{O_{\Delta_1}(x_1)O_{\Delta_2}(x_2)} = \frac{\delta_{\Delta_1\Delta_2}}{\abs{x-y}^{\Delta_1 + \Delta_2}}
+\end{equation}
+i.e. their form was constrained by the (conformal) symmetry. Three-point functions also took on a constrained form:
+\begin{equation}
+    \avg{O_{\Delta_1}(x_1)O_{\Delta_2}(x_2)O_{\Delta_3}(x_3)} = \frac{C_{\Delta_1\Delta_2\Delta_3}}{\abs{x_1 - x_2}^{\Delta_1 + \Delta_2 - \Delta_3}\abs{x_2-x_3}^{\Delta_2 + \Delta_3 - \Delta_1}\abs{x_3 - x_1}^{\Delta_1 + \Delta_3 - \Delta_2}}
+\end{equation}
+which we can check explicitly is consistent with the scale symmetry.
+
+There is one trivial result which we forgot to discuss - this is the one point function:
+\begin{equation}
+    \avg{O_\Delta(x)} = 0
+\end{equation}
+it is enough to have translation and scale symmetry to conclude this; translation symmetry tells us it is a constant, and scale symmetry tells us that it is equal to itself times some nonzero constant, i.e. the one-point function is zero. 
+
+This might enforce $\Delta = 0$, which is not really allowed (correlations do not fall off if $\Delta = 0$, and the three point function wouldn't fall off, and so on). So then the operators are constant - but this is also disqualified.
+
+There are rigorous lower bounds for $\Delta$:
+\begin{equation}
+    \Delta \geq \frac{D - 2}{2}
+\end{equation}
+for $D \geq 2$, the $\Delta$s are bounded from below. Note that the engineering dimension of $\phi$ saturates this lower bound. This could be an intuitive reason why there was no term linear in $\e$ as $\e < 0$ is possible.
+
+\subsection{Infinitesimal Translation/Rotation Transformations}
+If I have a translation, this means I take an operator (say, $\phi$) and replace it with:
+\begin{equation}
+    \phi(x) \to \phi(x + a).
+\end{equation}
+It is useful to think about an infinitesimal version of this. In this case:
+\begin{equation}
+    \phi(x) \to \phi(x + a) = \phi(x) + \v{a} \cdot \nabla\phi(x) + \ldots = \phi(x) + \delta\phi(x)
+\end{equation}
+where:
+\begin{equation}
+    \delta\phi(x) = \v{a} \cdot \nabla \phi(x)
+\end{equation}
+where we have assumed the $\v{a}$ is infinitesimal (and hence truncate the Taylor series at first order).
+
+Another way of encoding the directional information is:
+\begin{equation}
+    \delta^a \phi(x) = \nabla^a \phi(x) = P^a\phi(x)
+\end{equation}
+which looks like the momentum operator from quantum mechanics (up to an $-i\hbar$). Note that $\nabla^a_i = \frac{\partial}{\partial x^a_i}$. 
+
+Now, I want to do the same for the other transformations. The transformation has the form:
+\begin{equation}
+    \phi(x) \to \phi(Rx)
+\end{equation}
+where $R$ is a $D \times D$ real orthogonal matrix ($RR^T = R^TR = \II$). This is a finite rotation, but we can again think about an infinitesimal version. We consider:
+\begin{equation}
+    R = \II + \Theta
+\end{equation}
+Now using the constraint that $RR^T = \II$ we have:
+\begin{equation}
+    \II = RR^T = (\II + \Theta)(\II + \Theta^T) = \II + \Theta + \Theta^T
+\end{equation}
+where we have neglected the quadratic terms in $\Theta$. This tells us that:
+\begin{equation}
+    \Theta = -\Theta^T
+\end{equation}
+and so $\Theta$ is a real antisymmetric $D \times D$ matrix.
+
+Perhaps we are more used to thinking about angular momentum operators generating a rotation, and this is pretty close to that line of thinking. To see that, let's see what an infinitesimal rotation does to our field $\phi$.
+\begin{equation}
+    \phi(Rx) = \phi(x + \Theta x) = \phi(x) + \Theta^{ab}x^b\nabla_a\phi(x)
+\end{equation}
+The only thing about $\Theta$ we really need to know is that it is anti-symmetric; then $\Theta$ times $x^b\nabla_a$ gives us the infinitesimal rotation. So, let us abstract the operator that does the job:
+\begin{equation}
+    M^{ab} = x^a\nabla^b - x^b\nabla^a
+\end{equation}
+where we have antisymmetrized. This is like an angular momentum operator, just with a slightly different labelling. It works in any dimension. The one you are used to $\v{x} \times \v{p}$ works in three dimensions because a cross product exists in three dimensions (there is a wedge product in other dimensions, but 3D is the only dimension where the wedge product of two vectors yields another vector).
+
+The algebra of these transformations is interesting. By the commutativity of derivatives:
+\begin{equation}
+    [P^a, P^b] = 0
+\end{equation}
+If you calculate:
+\begin{equation}
+    [M^{ab}, P^c] = \delta^{bc}P^a - \delta^{ac}P^b
+\end{equation}
+Finally:
+\begin{equation}
+    [M^{ab}, M^{cd}] = \delta^{bc}M^{ad} - \delta^{bd}M^{ac} + \delta^{ad}M^{bc} - \delta^{ac}M^{bd}
+\end{equation}
+so - this is the algebra of symmetries of Euclidean space. They allow for many of the mathematical techniques you are familiar with. E.g. when we do Fourier analysis, we use the plane waves $e^{ipx/\hbar}$ which are the eigenvectors of $P$ (and the eigenvectors of $M$ are the spherical harmonics - used (e.g.) for solving the hydrogen atom).
+
+\subsection{Translation/Rotation Symmetry of a Correlation Function}
+\begin{equation}
+    \phi \to \phi + \delta\phi
+\end{equation}
+is a symmetry if:
+\begin{equation}
+    \avg{\phi(x_1)\phi(x_2)\ldots\phi(x_k)}
+\end{equation}
+obeys
+\begin{equation}
+    \avg{\delta\phi(x_1)\phi(x_2)\ldots\phi(x_k)} + \avg{\phi(x_1)\delta\phi(x_2)\ldots\phi(x_k)} + \ldots + \avg{\phi(x_1)\phi(x_2)\ldots\delta\phi(x_k)} = 0
+\end{equation}
+So for example., for translations:
+\begin{equation}
+    \avg{\nabla^a_1\phi(x_1)\phi(x_2)} + \avg{\phi(x_1)\nabla^a_2\phi(x_2)} = 0
+\end{equation}
+I.e:
+\begin{equation}
+    \left(\dpd{}{x_1^a} + \dpd{}{x_2^a}\right)\avg{\phi(x_1)\phi(x_2)} = 0
+\end{equation}
+and so:
+\begin{equation}
+    \dpd{}{(x_1 + x_2)^a}\avg{\phi(x_1)\phi(x_2)} = 0
+\end{equation}
+which tells us that:
+\begin{equation}
+    \avg{\phi(x_1)\phi(x_2)} = g(x_1, x_2) = g(x_1 + x_2, x_1 - x_2)
+\end{equation}
+only depends on $x_1 - x_2$ and not $x_1 + x_2$. Which is something that we studied already, but we are able to recover it from infinitesimal transformations. From rotation symmetry, we would again be able to obtain that it only depends on $\abs{x_1 - x_2}$.
+
+\subsection{Infinitesimal Scale/Conformal Transformations}
+We now consider infinitesimal scale transformations. The finite transformation is:
+\begin{equation}
+    \phi(x) \to \Lambda^\Delta\phi(\Lambda x)
+\end{equation}
+which we write as:
+\begin{equation}
+    \phi(x) \to (1 + \e)^\Delta \phi((1 + \e)x) = \phi(x) + \e(\v{x} \cdot \nabla + \Delta)\phi(x) = \phi(x) + eD\phi(x)
+\end{equation}
+where:
+\begin{equation}
+    D = \v{x} \cdot \nabla + \Delta
+\end{equation}
+In a sense, the $D$ just counts the scaling dimensions of things. 
+
+What about the conformal transformation? The finite version is:
+\begin{equation}
+    x^a \to \frac{x^a + \v{b} \cdot \v{x}x^a}{1 + 2\v{b} \cdot \v{x} + b^2x^2}
+\end{equation}
+Which to leading order:
+\begin{equation}
+    x^a = x^a + b^ax^2 - 2\v{b} \cdot \v{x}x^a + \ldots
+\end{equation}
+Now recall that:
+\begin{equation}
+    \phi(x) \mapsto \abs{\det\left(\dpd{x'}{x}\right)}^{\Delta/D}\phi(x')
+\end{equation}
+So here:
+\begin{equation}
+    \phi(x) \to \abs{\det(\delta^{ab} + 2b^ax^b - 2b^bx^a - 2\v{b} \cdot \v{x}\delta^{ab})}^{\Delta/D}\phi(x + \delta x)
+\end{equation}
+Now using that the determinant of a kronecker delta plus an infinitesimal is just 1 plus the trace of the infinitesimal:
+\begin{equation}
+    \phi(x) \to (1 - 2D\v{b}\cdot\v{x})^{\Delta/D}(\phi(x) + (\v{b}\v{x}^2 - 2\v{x}\v{b} \cdot \v{x})\cdot \nabla \phi(x))
+\end{equation}
+then Taylor expanding to get leading order:
+\begin{equation}
+    \phi \to \phi + \delta\phi, \quad \delta\phi = (-2\Delta \v{b} \cdot \v{x} + (\v{b}x^2 - 2\v{x}\v{b} \cdot \v{x})\cdot \nabla)\phi(x)
+\end{equation}
+This generates the conformal transformation. Let us name it $K^a$:
+\begin{equation}
+    K^a = -\Delta x^a + x^2\nabla^a - 2x^a\v{x} \cdot \nabla
+\end{equation}
+
+\subsection{A Look at the Operator Algebra}
+
+This exercise was tedious and the final expression is not particularly elegant. But what is less tedious is to include it in the algebra and to consider its commutation relations:
+\begin{equation}
+    [M^{ab}, K^a] = \delta^{bc}K^a - \delta^{ac}K^b
+\end{equation}
+\begin{equation}
+    [D, P^a] = -P^a, \quad [D, M^{ab}] = 0
+\end{equation}
+\begin{equation}
+    [D, K^a] = K^a
+\end{equation}
+\begin{equation}
+    [P^a, K^b] = 2M^{ab} - 2\delta^{ab}D
+\end{equation}
+There is some beauty here. First of all, the RHS of the commutators are all elements of the algebra. Moreover, they are linear in the operators; so this is called a linear, or conformal algebra. This is a Lie algebra, formally. They close in an interesting way. You might be familiar with spin/angular momentum in QM, where it is important where the commutator of angular momentum gives something linear in angular momentum, as this allows us to formally construct how to add angular momentum, or the transformations of different spin states. Here we have a similar closed algebra, so we might dream of doing the same here. For example when commuting with $D$, $P^a$ looks like a raising and $K^a$ a lowering operator. $P$ with $K$ gives you $D$, which looks a lot like the angular momentum algebra - and it is, except for the minus sign appearing. The result of them is that the construction with raising operators keeps going forever. There can be a bottom, but no top of possible states (like the QHO). It does give a way of organizing functions; we can organize functions in terms of eigenfunctions of $D$. This turns out to be easy to do, and totally familiar. 
+
+Say I have a function $\phi(x)$. We have discussed already how we would write it in terms of a linear combination of plane waves (eigenfunctions of $P$). How do we write it as a linear combination of other elements of this algebra? We do this via Taylor expansion:
+\begin{equation}
+    \phi(x) = \sum_{n=0}^\infty \left.\frac{1}{n!}x^{a_1}\ldots x^{a_n}\nabla^{a_1}\ldots \nabla^{a_n}\phi(x)\right|_{x=0}
+\end{equation}
+Where $nabla^{a_1}\ldots \nabla^{a_n}\phi(x) = [P^{a_1}, [P^{a_2}, \ldots [P^{a_n}, \phi(0)]\ldots]]$. What's more, $\phi$ evaluated at $0$ we can think of the ``lowest spin'' component of $\phi$, which satisfies:
+\begin{equation}
+    K^a\phi(0) = 0.
+\end{equation}
+And:
+\begin{equation}
+    D\phi(0) = \Delta\phi(0)
+\end{equation}
+So these are eigenfunctions of $D$ (with eigenvalues the dimension $\Delta$), and the Taylor expansion is in a sense the analog to the familiar fourier transform. We call $\phi(0)$ the primary operators and $[P^{a_1}, [P^{a_2}, \ldots [P^{a_n}, \phi(0)]\ldots]]$ the descendants.
+
+Next week, we will look at dynamics. Figuring out the $\Delta$s and what the $C$s are in the correlation functions are like figuring out the spectral data of the theory - figuring them out will allow us to calculate anything that we want. So - the roadmap is to explore this, and then come back to the Ising model field theory and see what this conformal field theory analysis can tell us about it.
