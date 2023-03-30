@@ -48,7 +48,29 @@ and unfortunately the symmetries tell us nothing about how the functions actuall
 If we then diagramatically impose some constraints/that certain forms of the 4-point function must be equivalent:
 \begin{figure}[htbp]
     \centering
-    
+    \begin{tikzpicture}[scale=0.5]
+        \draw[thick] (0, 0) -- (0, 2);
+        \draw[thick] (0, 2) -- (1, 3);
+        \draw[thick] (0, 2) -- (-1, 3);
+        \draw[thick] (0, 0) -- (-1, -1);
+        \draw[thick] (0, 0) -- (1, -1);
+        \node[below] at (-1, -1) {$1$};
+        \node[below] at (1, -1) {$2$};
+        \node[above] at (1, 3) {$3$};
+        \node[above] at (-1, 3) {$4$};
+
+        \node[] at (2.25, 1) {$=$};
+
+        \draw[thick] (5, 1) -- (7, 1);
+        \draw[thick] (5, 1) -- (4, 2);
+        \draw[thick] (5, 1) -- (4, 0);
+        \draw[thick] (7, 1) -- (8, 2);
+        \draw[thick] (7, 1) -- (8, 0);
+        \node[left] at (4, 0) {$1$};
+        \node[right] at (8, 0) {$2$};
+        \node[right] at (8, 2) {$3$};
+        \node[left] at (4, 2) {$4$};
+    \end{tikzpicture}
     \caption{Diagrammatic constraint on 4-point function - known as crossing symmetry.}
     \label{fig-crossingsymmetry}
 \end{figure}
@@ -60,25 +82,25 @@ Then the crossing symmetry enforces:
 \begin{equation}
     \sum_K(C_{\phi\phi K})^2[\text{stuff} - \text{stuff}] = 0
 \end{equation}
-and then we can ask when this has a consistent solution. By this constraint, we can find an allowed/disallowed region (where the plot is parameterized by the dimension of $\phi$ and $\phi^2$).
+and then we can ask when this has a consistent solution. By this constraint, we can find an allowed/disallowed region (where the plot is parameterized by the dimension of $\phi$ and $\phi^2$), as shown in Fig \ref{fig-montecarloplot}.
 
 \begin{figure}[htbp]
     \centering
-    
-    \caption{<caption>}
-    \label{<label>}
+    \includegraphics[scale=0.4]{Images/fig-montecarloplot.png}
+    \caption{Allowed/Disallowed regions of the dimensions $\Delta_\sigma = \Delta_\phi$ and $\Delta_\e = \Delta_{\phi^2}$ as solved for by Monte Carlo. Figure reproduced without permission from ``TASI Lectures on the Conformal Bootstrap'' by David Simmons-Duffin.}
+    \label{fig-montecarloplot}
 \end{figure}
 
-A more sophisticated computation (using what is known as the conformal bootstrap) yields:
+A more sophisticated computation (using what is known as the conformal bootstrap) yields Fig \ref{fig-CFTbootstrapplot}.
 
 \begin{figure}[htbp]
     \centering
-    
-    \caption{<caption>}
-    \label{<label>}
+    \includegraphics[scale=0.4]{Images/fig-CFTbootstrapplot.png}
+    \caption{Allowed/Disallowed regions of the dimensions $\Delta_\sigma = \Delta_\phi$ and $\Delta_\e = \Delta_{\phi^2}$ as determined by the conformal bootstrap method. Figure reproduced without permission from ``TASI Lectures on the Conformal Bootstrap'' by David Simmons-Duffin.}
+    \label{fig-CFTbootstrapplot}
 \end{figure}
 
-where we can see the ``Ising corner'' still persists, and shrinks to a small island. The accuracy we get here is something like six decimal places for critical exponents. For all intents and purposes, this procedure is an exact solution to the 3D Ising model. For $D = 3$, we find the dimensions:
+Here we can still see the ``Ising corner'' still persists, and shrinks to a small island. The accuracy we get here is something like six decimal places for critical exponents. For all intents and purposes, this procedure is an exact solution to the 3D Ising model. For $D = 3$, we find the dimensions:
 \begin{equation}
     \Delta_\phi = 0.518151(6), \quad \Delta_{\phi^2} = 1.41264(6)
 \end{equation}
