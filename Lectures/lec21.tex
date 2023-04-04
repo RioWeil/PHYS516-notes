@@ -1,0 +1,115 @@
+\section{The $O(N)$ Model}
+\subsection{The Model and its Symmetries}
+Last time we introduced the $O(N)$ model. It is a very nice theoretical playground; you will hear ``large-$N$'' expansion, or limit fairly ubiquotously in theory seminars. This is because models like $O(N)$ simplify quite nicely when $N$ is large. And there can be things to learn from that; even if they are not completely realistic (as $N = 3$ is the physically correct dimensionality). It is for some situations a useful approximation, however; e.g. in analyzing the strong interaction, where in the $N \to \infty$ limit things look like a string theory (not analytically solvable, but pictorially/conceptually interesting). Here we will also find the large $N$ limit of the $O(N)$ model to be a useful limit, as is it solvable.
+
+The $O(N)$ model has spins $\gv{\sigma}(x) = (\sigma_1(x), \ldots, \sigma_N(x))$ such that $\sum_{a=1}^N \sigma_a(x)^2 = \gv{\sigma}(x)^2 = 1$. We can write the $O(N)$ Hamiltonian as:
+\begin{equation}
+    H = \frac{J}{2}\sum_{x, i}\left(\gv{\sigma}(x + i) - \gv{\sigma}(x)\right)^2
+\end{equation}
+
+What is convenient about this form of the Hamiltonian is that the above looks something like the discritization of the $i$th component of the derivative. It is also non-negative (by redefinition of the zero energy). The model has an $O(N)$ symmetry, namely:
+\begin{equation}
+    \sigma^a(x) = \sum_{b=1}^N R^a_b\sigma^b(x)
+\end{equation}
+where $R$ is an orthogonal matrix (that we apply to every spin), i.e. it satisfies $RR^T = R^TR = \II$. Now, the collection of $N \times N$ real orthogonal matrices is equivalent to the Lie group $O(N)$. This $N$-dependent symmetry perhaps indicates to us that the universality class depends on $N$.
+
+If we take $N = 3$, this is just the $O(3)$ model (isotropic ferromagnet) which we solved in HW2. $N = 2$ is just the $O(2)$ version (easy-plane ferromagnet) which is not so different. $N = 1$ is just the Ising model (easy-axis ferromagnet); $\sigma^2(x) = 1$ enforces $\sigma(x) = \pm 1$. $N = \infty$ will be a solvable limit, and it will turn out that things will be identical to the spherical model (though its not necessarily clear how they coincide yet; note in the spherical model we constrained the sum of the squared magnitudes of all of the spins, while here we constrain each of the individual spins).
+
+Actually, in more generality the Hamiltonian has the form:
+\begin{equation}
+    H = \frac{J}{2}\sum_{x, i}\left(\gv{\sigma}(x + i) - \gv{\sigma}(x)\right)^2 - \v{B} \cdot \sum_x \gv{\sigma}(x)
+\end{equation}
+The model is actually $O(N)$ covariant; with just the first term we can rotate all the spins and things work out as there are only squared spin terms. However now we have a term linear in $\gv{\sigma}$; so, if we rotate $\v{B}$ accordingly in addition to the spins the Hamiltonian remains invariant.
+
+\subsection{Model Ground State}
+The spin direction(s) that minimize the energy is given by:
+\begin{equation}
+    \gv{\sigma}(x) = \frac{\v{B}}{\abs{\v{B}}} = \v{m}
+\end{equation}
+as then the first term is zero and the second term is minimized. The energy density is then:
+\begin{equation}
+    u_0 = -\abs{\v{B}}
+\end{equation}
+
+The energy density is then a continuous function, but the derivative jumps (And so the second derivative does not exist) at the origin, so we have a first-order phase transition. This is true for any $N$. 
+
+\begin{comment}
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}
+        \draw[thick, -latex] (0, 0) -- (0, 3);
+        \draw[thick, latex-latex] (-3, 0) -- (3, 0);
+        \draw[red, -latex] (0, 0) -- (2, 2);
+        \draw[red, -latex] (0, 0) -- (-2, 2);
+        \node[right]at (0, 3) {$u_0$};
+        \node[below] at (3, 0) {$\v{B}$};
+
+    \end{tikzpicture}
+    \caption{<caption>}
+    \label{<label>}
+\end{figure}
+\end{comment}
+
+We have discussed this at length for Ising models; as we turn up the temperature, we have a line of first order phase transitions, ending in a second-order phase transition (see Fig. \ref{fig-IsingphasediagramB0})
+
+
+\subsection{Low-Energy States}
+With the Ising model, we had two lowest-energy states (all spin up or all spin down). Here things are a bit more complicated; the reason is that in the Ising model the symmetries were discrete ($\mathbb{Z}_2$) but here we have continuous rotational symmetry.
+
+The lowest energy state is $\gv{\sigma} = \text{const.}$ where $\gv{\sigma}$ is an $x$-independent constant. But then any unit vector in any dimension is the ground state; so we have an infinitely degenerate ground state.
+
+WLOG, we can choose $\gv{\sigma} = (1, 0, \ldots, 0)$ as this vector is as good as any other. Now, we consider a perturbatuon to this:
+\begin{equation}
+    \delta\gv{\sigma} = (\sqrt{1-\e^2}, \e, 0, \ldots, 0)
+\end{equation}
+Now, there are $N-1$ directions we can choose here, so there are $N - 1$ low-energy ``excitations''. These have a name which you see everywhere in physics; namely, they are Goldstone bosons. There aren't really bosons, nor travelling waves here; everything is static. The name Goldstone boson is another term borrowed from the correspondence to quantum field theory. Goldstone's theorem says that the number of Goldstone bosons is equal to the number of broken symmetries. This is a group theory problem, so let's try this together. In three-dimensions, we have three rotational symmetries. How do we count them in $N$-dimensions? In general, we can count the number of planes we can rotate in (not the number of axes we can rotate around - think for example to $N = 2$, where something can only rotate in the $xy$-plane around the $z$-axis). $O(N)$ symmetry then has the number of rotations given by the number of planes we can rotate in; this is given by $\frac{N(N-1)}{2}$ (we have $N$ choices for the first axis, then $N-1$ for the second axis; this forms the plane. We then divide by 2 as the order in which we pick the two axis does not matter and we do not want to overcount). If we now put $\gv{\sigma}$ in one particular direction, how many symmetries are we left with? The symmetries that are left are the ones that rotate the other components, but leave the one component alone. In other words, the residual symmetries are $O(N-1)$, i.e. $\frac{(N-1)(N-2)}{2}$. So, the number of broken symmetries is:
+\begin{equation}
+    \frac{N(N-1)}{2} - \frac{(N-1)(N-2)}{2} = \frac{N^2 - N - (N^2 - 3N + 2)}{2} = \frac{2N - 2}{2} = N-1.
+\end{equation}
+as claimed. And this lines up with our prior analysis; there are $N - 1$ components where we could place the $\e$ for our excitation.
+
+So, this is what we can say about low-energy states. This makes a low-temperature expansion quite complicated (actually, both the low and high $T$ expansions are complicated here; unlike the Ising model where we had sums, we have integrations over $N$-dimensional unit vectors, here).
+
+\subsection{Partition Function of the $O(N)$ Model}
+So far we just have the Hamiltonian. Let us compute the partition function so we can do statistical mechanics.
+
+Let $x$ be a point on a lattice in $D$-dimensions. Then:
+\begin{equation}
+    Z[T, V, B] = \int \prod_x d\gv{\sigma}(x) e^{-H/k_B T} = \int \prod_x d\gv{\sigma}(x) e^{- \frac{J}{2k_B T}\sum_{x, i}\left(\gv{\sigma}(x + i) - \gv{\sigma}(x)\right)^2 + \frac{\v{B}}{k_B T} \cdot \sum_x \gv{\sigma}(x)}
+\end{equation}
+note that the integral over unit vectors could (in practice) be done in arbitrary dimensions by going into polar coordinates (Which gets quite complicated for $N > 3$, but can be done nonetheless)!
+
+As we take $T \to \infty$ we get the paramagnetic phase, and indeed studying the limits of the phase diagram we find something akin to Fig. \ref{fig-IsingphasediagramB0}. 
+
+We now need to explore the computation of $Z$ in more detail. We have a very large number of coupled integrals, which in general we cannot do exactly. There are two approaches we an take however. One approach is the Gaussian transform of the Ising model, which leads us to the renormalization group discussion. The other option is to open up $\gv{\sigma}$; if it were not required to live on an $N$-dimensional sphere but could be some arbitrary vector, then the integral is just a Gaussian integral which we are very familiar with. The expression would not be particularly interesting as the model becomes a bit trivial when we remove the $\gv{\sigma}^2(x) = 1$ constraint; this constraint adds a lot to the dynamics. Let us implement the constraint into the integral as follows:
+\begin{equation}
+    \int d\gv{\sigma} \delta(\gv{\sigma}^2 - 1)
+\end{equation}
+In 3D we know how to do this:
+\begin{equation}
+    \int_{-\pi}^\pi d\phi \int_0^\pi \sin\theta d\theta \int_0^\infty r^2 dr \delta(r^2 - 1)
+\end{equation}
+where we can then use that:
+\begin{equation}
+    \delta(r^2 - 1) = \frac{\delta(r - 1) + \delta(r + 1)}{2\abs{r}}
+\end{equation}
+so now invoking the Fourier transform:
+\begin{equation}
+    2\int d\gv{\sigma}\delta(\gv{\sigma}^2 - 1) = 2\int d\gv{\sigma} \frac{d\lambda}{2\pi}e^{-i\lambda(\gv{\sigma}^2 -1)}
+\end{equation}
+
+Now, let's use this trick for the partition function:
+\begin{equation}
+    Z[T, V, B] = \int \prod_x d\sigma_1(x) \ldots d\sigma_N(x) \frac{d\lambda(x)}{\pi}e^{-\frac{J}{2k_B T}\sum_{x, i}\left(\gv{\sigma}(x + i) - \gv{\sigma}(x)\right)^2 - i\sum_x \gv{\sigma}(x)^2\lambda(x) + i\sum_x \lambda(x) + \frac{\v{B}}{k_B T}\sum_x \gv{\sigma}(x)}
+\end{equation}
+which looks like we have gone backwards as we have introduced more integrals, but the gain is that we now just have an unconstrained integral over the $\gv{\sigma}$ which is just going to be a Gaussian integral. We can then write down the all-too familiar result:
+\begin{equation}
+    Z[T, V, B] = \int \prod_x \frac{d\lambda(x)}{\pi}\exp(-\frac{N}{2}\Tr\ln(\Delta + 2i\lambda) + i\sum_x \lambda(x) + \frac{1}{2}\left(\frac{\v{B}}{k_B T}\right)^2\sum_{xy}\left(\Delta + 2i\lambda\right)^{-1}_{xy})
+\end{equation}
+where the $N$ in the exponential comes out of the fact that we have $N$ identical integrals, and we have completed the square with the $\v{B}$ term. The $\Delta$ in the above expression is the matrix:
+\begin{equation}
+    \Delta(x, y) = \frac{J}{k_B T} \sum_{i=1}^D \left(2\delta_{x, y} - \delta_{x, y+i} - \delta_{x + i, y}\right)
+\end{equation}
+and $2i\lambda = 2i\lambda(x)\delta(x, y)$. We've seen this sort of thing when we studied the spherical model; we used the Fourier transform to implement a constraint etc. Here things are different in that the constraint is local/site-by-site (vs. the spherical model the constraint was global).
+
+Next, time, we will consider the $\frac{1}{N}$ expansion, which will be an expansion in a dimensionless (small) parameter (if $N$ is large) which allows us to approximate this expression.
