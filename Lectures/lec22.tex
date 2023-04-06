@@ -1,0 +1,75 @@
+\section{The $O(N)$ Model Continued}
+Last time we studied the $O(N)$ model. We considered taking the $N \to \infty$ limit, and in this limit we are able to derive the spherical model; kind of interesting that we can derive the spherical model (with a global constraint) from a model which only has local constraints! Of course for $N = 1$ we have the Ising model, and as we vary $N$ we can interpolate between Ising and spherical.
+
+We will not continue what we did last time as the equation for $i\lambda$ is equivalent to the equation for $\kappa^2$ that we had in the spherical model; the analysis of these integrals will be exactly the same as that case.
+
+Our next step is then to turn to the renormalization group methods. We go to an effective field theory which describes the long-wavelength degrees of freedom. At the second-order phase transition, we can see fluctuations on macroscopic scales, so we can back off/course grain and look at the system macroscopically, and the system looks like a continuum. We can then analyze this continuum model. We can skip a whole bunch of stuff that we don't know how to do anyway, and just go to the last steps.
+
+\subsection{Lattice Field $O(N)$ Model}
+We consider an effective action $S_{\text{eff}}[\gv{\phi}]$, where the action should inherit the rotational $O(N)$ symmetries of the original model; and so:
+\begin{equation}
+    S_{\text{eff}}[\gv{\phi}] = \int d^Dx \left(\frac{1}{2}(\nabla_a \gv{\phi})^2 + \frac{\tau}{2}\gv{\phi}^2 + \frac{\lambda}{4}\left(\gv{\phi}^2\right)^2\right)
+\end{equation}
+For $D > 4$, dimensional analysis tells us that we actually have kept too many operators. The $\gv{\phi}^2$ term is always relevant, but for $D > 4$ the $\left(\gv{\phi}^2\right)^2$ term is irrelevant; for $D < 3$ there is also a $\gv{\phi}^6$ term that contributes to critical behaviour, but let us not worry about this (let's suppose $3 < D < 4$). 
+
+This is not too different to what we have been studying already, just that instead of a $\ZZ_2$ symmetry we now have an $O(N)$ symmetry.
+
+We consider the small wavevector regime, i.e. $\abs{\v{k}} \leq 1$. The partition function for this system is:
+\begin{equation}
+    Z[T, V] = \int [d\phi] e^{-S_{\text{eff}}[\phi]}
+\end{equation}
+
+\subsection{Analyzing the Model with Perturbation Theory}
+We want to somehow attack this model; one (numerical) approach would be to discretize the space and then use a Monte Carlo simulation. If we don't have a computer, our approach is to suppose $\lambda$ is small and treat the problem in perturbation theory; if $\lambda = 0$ then we can just do a Gaussian integral, and if $\lambda$ small then we can consider corrections to the Gaussian integral. We will find that things will flow/attracted to the Wilson-Fisher fixed point, from which we can analyze4 the critical behaviour.
+
+So, we assume $\lambda$ is small, and moreover that it stays small. We consider $D = 4-\e$. We do a double expansion in $\lambda$ and $\e$. Here we lower our cutoffs to remove the short wavelength degrees of freedom to study the long-wavelength ones which give rise to the critical behaviour; this is counter to what you may have seen in a quantum field theory course, where the cutoffs are generally raised. 
+
+There is an analog here to WKB/semiclassical approx in QM - the size of the action controls the behaviour. If the action is large, then the motion is classical and WKB works.
+
+So, lets split up the field into:
+\begin{equation}
+    \phi(x) = \phi_<(x) + \phi_>(x)
+\end{equation}
+where we want to integrate out the $\phi_>(x)$ which is the big $\abs{\v{k}}$/short wavelength degrees of freedom. So, we want:
+\begin{equation}
+    e^{-\tilde{S}_{\text{eff}}[\phi_<]} = \int d\phi_> e^{-S_{\text{eff}}[\phi_< + \phi_>]}
+\end{equation}
+by expanding in a Taylor series:
+\begin{equation}
+    e^{-\tilde{S}_{\text{eff}}[\phi_<]} \approx e^{-S_{\text{eff}}[\phi_<]}\int d\phi_> e^{-\int dx \dpd{S_{\text{eff}}}{\phi_<(x)}\phi_>(x) - \frac{1}{2}\int dxdy \frac{\partial^2 S_{\text{eff}}}{\partial \phi_<(x)\partial \phi_<(y)}\phi_>(x)\phi_>(y) + \ldots}
+\end{equation}
+and if we approximate by truncating the expansion at quadratic order, we just have a Gaussian integral. This truncation is justified so long as $\lambda$ in $S_{\text{eff}}$ is small.
+
+There is the linear term which sometimes we put there, sometimes we ignore/throw away. This term we do not want, but it is only nonzero for $\phi_<$s for sufficiently large wavenumbers which can add up to greater than $1$; but we are really only interested in $\phi_<$s close to zero, and so we are justified in throwing it away. It's not too hard to keep track of it, it just makes for more writing. It's worth noting that most textbooks don't even mention this, and just throw this term away.
+
+Doing the Gaussian integral, we get:
+\begin{equation}
+    \tilde{S}_{\text{eff}}[\gv{\phi}] = \int d^Dx \left(\frac{1}{2}(\nabla_a \gv{\phi}_<)^2 + \frac{\tau}{2}\gv{\phi}^2_< + \frac{\lambda}{4}\left(\gv{\phi}^2_<\right)^2\right) + \frac{1}{2}\Tr_>\ln\left(\left(-\nabla^2\delta^{IJ} + \tau\delta^{IJ} + \frac{\lambda}{2}\gv{\phi}^2_<\delta^{IJ} + \lambda\phi_<^I\phi_<^J\right)\delta(x, y)\right)
+\end{equation}
+This trace is over the pieces of the matrix that have wavenumber $\abs{\v{k}} > 1$. This is because the quadratic form appeared between two $\phi_>$s. This is discussed at length in the assignment; there is however one difference, namely the $\lambda \phi_<^I\phi_<^J$ term. This has something to do with the appearance of Goldstone bosons. It is something that we will easily handle, but let us point it out; it helps things be $N$-dependent.
+
+Now what? There is another step to the renormalization group transformation, namely scaling. There are two scaling; one is multiplying $\phi$ by a constant. It will turn out that the $\frac{1}{2}(\nabla_a \gv{\phi}_<)^2$ is not corrected by the trace log term, and the corrections start at higher order. Then, there is an actual coordinate/scale transformation such that the term is preserved. We could do this now, but perhaps it is better to discuss what we obtain from the trace log first.
+
+So, if $\frac{1}{2}(\nabla_a \gv{\phi}_<)^2$ is not corrected, and I'm only interested in how $\gv{\phi}^2_<$ and $\left(\gv{\phi}^2_<\right)^2$ change, from the trace log term it should be good enough to extract terms that look like $\gv{\phi}^2_<$ and $\left(\gv{\phi}^2_<\right)^2$. I can assume $\phi_<$ does not depend on $x$ in the trace log to get such terms.
+
+Let's establish a new cutoff; $\phi_<$ is $\abs{k} < \Lambda$ and $\phi_>$ is $\Lambda < \abs{k} < 1$. We set $\phi^I$ constant in the trace log, and then:
+\begin{equation}
+    \frac{1}{2}\Tr \ln (\ldots) = \frac{1}{2}\int d^Dx \int_{\Lambda < \abs{k} < 1} \frac{d^Dk}{(2\pi)^D}\Tr((k^2 + \tau + \frac{\lambda\gv{\phi}^2}{2})\delta^{IJ} + \lambda\phi^I\phi^J)
+\end{equation}
+The eigenvalue problem is:
+\begin{equation}
+    \sum_J \phi^I \phi^J V^J = \lambda V^I
+\end{equation}
+One of the eigenvectors is $V^I = \phi^I$, with eigenvalue $\lambda = \phi^2$. Also, any vector orthogonal to $\phi$ (of which there are $N - 1$ linearly independent such vectors) will satisfy the equation with $\lambda = 0$ ($N-1$ fold degeneracy). So, we can use this information to find the trace:
+\begin{equation}
+    \frac{1}{2}\Tr \ln (\ldots) = \frac{1}{2}\int d^Dx \int_{\Lambda < \abs{k} < 1} \frac{d^Dk}{(2\pi)^D}\left[(N-1)\ln(k^2 + \tau + \lambda\frac{\gv{\phi}_<^2}{2}) + \ln(k^2 + \tau + \frac{3}{2}\lambda \gv{\phi}_<^2)\right]
+\end{equation}
+If we put $D = 4$, the integrals become quite simple (we go to polar coordinates for $k$, and carry out the angular integrals, giving us the surface area of the unit $3$-sphere, which is $2\pi^2$, and then we just have the radial integral left - we can do this because the integrand only depends on $k^2$.)
+\begin{equation}
+    \frac{1}{2}\Tr \ln (\ldots) = \frac{1}{2}\int d^4x \frac{2\pi^2}{16\pi^4} \int_\Lambda^1 k^3 dk \left((N-1)\ln(k^2 + \tau + \lambda\frac{\gv{\phi}_<^2}{2}) + \ln(k^2 + \tau + \frac{3}{2}\lambda \gv{\phi}_<^2)\right)
+\end{equation}
+and now this is something we can just throw into Maple; but we can also do it ourselves. We only need the terms in $\phi^2, \phi^4$. We can either Taylor expand and then integrate, or integrate and Taylor expand to get the information that we want. So, let's Taylor expand:
+\begin{equation}
+    \frac{1}{2}\Tr \ln (\ldots) = \frac{1}{2}\int d^4x \frac{1}{8\pi^2}\int_{\Lambda^2}^1 \frac{k^2dk^2}{2} \left[\frac{\lambda \gv{\phi}_<^2}{k^2 + \tau} - \frac{1}{2}\frac{1}{(k^2 + \tau)^2}\frac{5}{2}\lambda^2(\gv{\phi}_<^2)^2\right] = \Delta \tau \frac{1}{2}\gv{\phi}_<^2 + \frac{\Delta \lambda}{4}(\gv{\phi}_<^2)^2
+\end{equation}
+Part of your assignment will be to figure out the $\beta$ function coming from these coupling constants; 5hiw iw 
