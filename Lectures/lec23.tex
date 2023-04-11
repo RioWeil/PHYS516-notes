@@ -1,0 +1,92 @@
+\section{The $O(N)$ model concluded}
+The renormalizaiton group process has three parts; first part is to do the functional integral over the short wavelength parts. Then the second part is to put the first term in the effective action to its canonical form of $\frac{1}{2}(\nabla \phi)^2$. The third step is to rescale, putting the cutoff back at $\Lambda = 1$. This yields a new effective action, and now we want to know how the old and new effective actions are related. The way to get a handle on this change is to consider an infinitesimal change, yielding a (nonlinear) differential equation - which leads to a flow problem. The flow of the coupling constants are governed by the $\beta$ functions, and we can use these and dimensional analysis to figure out what some of the critical exponents are. For example we can look at $\avg{\phi(x)\phi(y)}_C$ and see how things scale.
+
+\subsection{Calculating the Coupling Constant Shift}
+So as a last step here, let us show how we calculate the $\beta$ function. The effective action to begin with is:
+\begin{equation}
+    S_{\text{eff}}[\phi] = \int d^{4-\e}x \{\frac{1}{2}(\nabla \gv{\phi})^2 + \frac{\tau}{2}\gv{\phi}^2 + \frac{\lambda}{8}(\gv{\phi}^2)^2\}
+\end{equation}
+Then, having integrated the short wavelength modes out:
+\begin{equation}
+    S_{\text{eff}}[\phi_<] = S_{\text{eff}}[\phi_<] + \frac{1}{2}\Tr_>\ln(-\nabla^2\delta^{ij} + \tau\delta^{ij} + \frac{\lambda}{2}\delta^{ij}\phi_<^2 + \lambda \phi_<^i\phi_<^j )
+\end{equation}
+we only have any hope of evaluating the trace-log if we know the eigenvalues of the matrix. Generally, we look for slightly simpler things; we are only interested in how the $(\nabla \gv{\phi})^2, \gv{\phi}^2, (\gv{\phi}^2)^2$ terms change - the former does not change (which can be shown by Taylor expanding the trace-log), and to study hpw the others change we can just take $\phi$ a constant inside of the trace log.
+
+We should also recall at some point that we got this by integrating the short wavelength modes, so we note the restriction $>$ on the range of the trace. 
+
+To evaluate the trace-log, we can consider $\lambda \phi^i_< \phi^j_<$ as a perturbation; to this end we Taylor expand:
+\begin{equation}
+    \Tr\ln(A + B) = \Tr\ln(A(I + A^{-1}B)) = \Tr\ln A + \Tr A^{-1}B - \frac{1}{2}\Tr(A^{-1}BA^{-1}B) + \ldots
+\end{equation}
+So then (assuming $\lambda$ is small - note we need this assumption to do this expansion, and it turns out to be not so bad of an assumption; but we are not able to proceed without it. The reasons why this succeeds is likely due to the RG flow, and the fixed point is attractive, so even if $\lambda$ is bigger it flows back to the fixed point that we find):
+\begin{equation}
+    \begin{split}
+        \frac{1}{2}\Tr_>\ln(-\nabla^2\delta^{ij} + \tau\delta^{ij} + \frac{\lambda}{2}\delta^{ij}\phi_<^2 + \lambda \phi_<^i\phi_<^j ) &= \frac{1}{2}\left[(-\nabla^2 + \tau)\delta^{ij}\left(\frac{\lambda}{2}\delta^{ij}\phi_<^2 + \lambda \phi^i \phi^j\right)\right]
+        \\ &= \frac{1}{2}\int d^{4-\e}x d^{4-\e}y \delta^{ij}g(y, x)\left[\frac{\lambda}{2}\delta^{ij}\phi_<^2(x) + \lambda\phi^i(x)\phi^j(x)\right]\delta(x, y)
+    \end{split}
+\end{equation}
+now we can use the delta function to integrate out $y$, and then we can sum over $ij$. We then get:
+\begin{equation}
+    \begin{split}
+        \frac{1}{2}\Tr_>\ln(-\nabla^2\delta^{ij} + \tau\delta^{ij} + \frac{\lambda}{2}\delta^{ij}\phi_<^2 + \lambda \phi_<^i\phi_<^j ) &= \frac{1}{2}\left[(-\nabla^2 + \tau)\delta^{ij}\left(\frac{\lambda}{2}\delta^{ij}\phi_<^2 + \lambda \phi^i \phi^j\right)\right]
+        \\ &= \frac{1}{2}\int d^{4-\e}x g(x, x)\left(\frac{\lambda}{2}N + \lambda\right)\gv{\phi}(x)^2
+    \end{split}
+\end{equation}
+Note that by Fourier transforming:
+\begin{equation}
+    g(y, x) = \int_{\Lambda < \abs{p} < 1} \frac{d^{4-\e}p}{(2\pi)^{4-\e}}\frac{e^{i\v{p}(\v{y} - \v{x})}}{(p^2 + \tau)}
+\end{equation}
+but we can actually set $\e = 0$ here as we double expand in $\e, \lambda$ and $\e$ is the same order as $\lambda$. If we have $y = x$:
+\begin{equation}
+    g(x, x) = \int_{\Lambda < \abs{p} < 1} \frac{d^{4-\e}p}{(2\pi)^{4-\e}}\frac{1}{p^2 + \tau}
+\end{equation}
+so then:
+\begin{equation}
+    \frac{1}{2}\int d^{4-\e}x g(x, x)\left(\frac{\lambda}{2}N + \lambda\right)\gv{\phi}(x)^2 = \int d^4x \frac{1}{2}\gv{\phi}^2(x)\left(\frac{N+2}{2}\lambda \int_{\Lambda}^1 \frac{d^{4-\e}p}{(2\pi)^{4-\e}}\frac{1}{p^2 + \tau}\right)
+\end{equation}
+So $\tau$ goes to $\tau +$ the expression in the brackets above. We can do the same to quartic order. We then rescale; the $\gv{\phi}$s bring $\Lambda$s and then the integration measures bring out a $\frac{1}{\Lambda^D}$; so then after the rescaling, we go to:
+\begin{equation}
+    \tau \to \frac{\tau}{\Lambda^2} + \frac{1}{\Lambda^2}\cdot \text{stuff in brackets}
+\end{equation}
+
+\subsection{Flow Equations for Coupling Constants}
+So this is what $\tau$ is replaced by; we can now assume that the transformation is infinitesimal, and find the differential rate, yielding the $\beta$ function for $\tau$:
+\begin{equation}
+    \beta_\tau(\tau, \lambda) = \left.\Lambda \dpd{}{\Lambda}\tau \right|_{\Lambda = 1}
+\end{equation}
+taking the derivative:
+\begin{equation}
+    \dpd{}{\Lambda}\tau = -2\tau + \frac{\lambda\left(\frac{N+2}{2}\right)}{\tau + \Lambda^2}
+\end{equation}
+setting $\Lambda = 1$ we find:
+\begin{equation}
+    \beta_\tau(\tau, \lambda) = -2\tau + \frac{N+2}{2}\frac{\lambda}{\tau}
+\end{equation}
+We can proceed analogously to find $\beta_\lambda(\tau, \lambda)$, and then study (analytically or numerically) the two differential equations that follow to see how $\tau, \lambda$ change (we can also find the fixed points in this way).
+
+Now, note that the original $Z[T, V]$ did not depend on $\Lambda$, and so $\avg{\phi(x)\phi(y)}$ before RG should not either. But now our results seem to depend on the cutoff $\Lambda$s - how is this consistent? Basically, there will be dependencies that cancel in our final results; mathematically:
+\begin{equation}\label{eq-floweq}
+    \left(\Lambda\dpd{}{\Lambda} + \sum_r \beta_r(\lambda)\dpd{}{\lambda}\right)Z = 0
+\end{equation} 
+Now we have something like a flow equation:
+\begin{equation}
+    \dod{}{t}\lambda_r(t) = -\beta_r(\lambda(t))
+\end{equation}
+where we take $\Lambda = e^{-t}$; then Eq. \eqref{eq-floweq} is satisfied. We then look at the trajectories, and let things flow until they stop (if they do not then the coupling becomes strong and we have other problems). We can then study the theories at the fixed points. This contains the information about the RG group. Note the exact solution of these equations would be in a sense non-perturbative because the solutions to these equations contain information about the coupling constants to infinite order. Even though we can't calculate them directly, we guess what they can be so the RG equations work.
+
+So, we discussed extracting the critical exponent from the correlation length. Let us not go through this explicitly, but it can be done in theory. For the $O(N)$ model, let us write down what these critical exponents turn out to be. In $\e$ dimensions, we get:
+\begin{table}[htbp]
+    \centering\begin{tabular}{|c|c|}
+        \hline Critical Exponent & Value
+        \\ \hline $\alpha$ & $-\frac{N-4}{2(N+8)}\e + \ldots$
+        \\ \hline $\beta$ & $\frac{1}{2} - \frac{3}{2(N+8)}\e + \ldots$
+        \\ \hline $\gamma$ & $1 + \frac{N+2}{2(N+8)}\e$
+        \\ \hline $\delta$ & $3 + \e + \ldots$
+        \\ \hline $\eta$ & $\frac{N+2}{2(N+8)^2}\e^2 + \ldots$ 
+        \\ \hline $\nu$ & $\frac{1}{2} + \frac{N+2}{4(N+8)}\e + \ldots$
+        \\ \hline
+    \end{tabular}
+\end{table}
+Note that when $N = 1$ we have the Ising model and when $N = \infty$ we have the spherical model (note that $N \to \infty$ is a viable limit for all of the critical exponents above, and we will see the spherical model critical exponents will be reproduced.)
+
+By this unlikely route, we are able to systematically calculate critical exponents to a fairly high (not quite as high as conformal bootstrap, but still a respectable number of decimal places) precision. This is a nice piece of physics - in itself, but also it maps onto quantum field theory and fundamental physics. There's a bit can of worms in this correspondence that we will not go into too much - do take a field theory course if you are curious about it!
